@@ -1,14 +1,30 @@
 import React from 'react';
 
+import {connector} from "./../store/connectors";
+import {Route, Switch} from 'react-router-dom';
+
 import { Button } from 'antd';
+
+const methods = {
+    componentWillMount({state, dispatch}) {
+        console.log('init App');
+
+    }
+}
 
 const App = ({state, dispatch}) =>
   <div>
-    <Button type="primary">Primary</Button>
-    <Button>Default</Button>
-    <Button type="dashed">Dashed</Button>
-    <Button type="danger">Danger</Button>
-    <Button type="link">Link</Button>
+    <Switch>
+
+      <Route path="/"
+             exact
+             render={props => <div>home</div> }
+      />
+
+      <Route render={props => <div>404</div> }
+       />
+
+    </Switch>
   </div>
 
-export default App;
+export default connector({methods, component: App});
