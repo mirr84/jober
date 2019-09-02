@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from 'antd';
 
-const App = () =>
+const App = ({state, dispatch}) =>
   <div>
     <Button type="primary">Primary</Button>
     <Button>Default</Button>
