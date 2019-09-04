@@ -1,6 +1,8 @@
 import React from 'react';
 
 import {connector} from "./../store/connectors";
+import {doCheck} from "../service/authService";
+
 import {Layout, Spin, Icon, Modal} from 'antd';
 
 const {Header, Content, Footer} = Layout;
@@ -16,27 +18,31 @@ const methods = {
         if (secure) {
           isCheckSecure = true;
           dispatch.setter("commonReducer", {});
-          setTimeout(
-            () => {
-              isCheckSecure = false;
-              dispatch.setter("commonReducer", {});
-            },
-            1000
-          )
+
+          doCheck({dispatch})
+            .then(
+              () => {
+                // успех проверки авторизации
+                dispatch.setter("authReducer", { isAuth: true });
+              },
+              () => {
+                // ошибка проверка авторизации
+                dispatch.setter("authReducer", { isAuth: false });
+              }
+            )
+            .then (
+              () => {
+                isCheckSecure = false;
+                dispatch.setter("commonReducer", {});                
+              }
+            )
+
         }
 
     }
 }
 
-const checkSecure = ({secure, content: Component}) => {
-  if (!secure) return <Component />;
-  if (secure) {
-      console.log('checkSecure');
-    return <Component />;
-  }
-}
-
-const MyLayout = ({state, dispatch, content, secure = false}) =>
+const MyLayout = ({state, dispatch, content: ContentComponent, secure = false}) =>
   <div>
 
     <Modal
@@ -65,11 +71,7 @@ const MyLayout = ({state, dispatch, content, secure = false}) =>
 
         <Content style={{ padding: 20, minHeight: `calc(100vh - ${isHeader ? 84: 0}px - ${isFooter ? 89: 0}px )` }}>
           <div style={{ background: '#fff', padding: 24 }}>
-
-              {
-                checkSecure({secure, content})
-              }
-
+              <ContentComponent secure={secure} />
           </div>
         </Content>
 
