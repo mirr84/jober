@@ -6,12 +6,12 @@ import {Button} from 'antd';
 
 const methods = {
     componentWillMount({state, dispatch}) {
-        console.log('init Home');
+        console.log('init Main');
 
     }
 }
 
-const Home = ({state, dispatch, history}) =>
+const Main = ({state, dispatch, history}) =>
   <div>
 
     <Button size={'small'}
@@ -37,4 +37,4 @@ const Home = ({state, dispatch, history}) =>
 
   </div>
 
-export default connector({methods, component: Home});
+export default connector({methods, component: Main});

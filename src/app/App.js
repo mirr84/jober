@@ -5,6 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 
 import MyLayout from "./../layout/MyLayout";
 import Home from "./../home/Home";
+import Main from "./../home/Main";
 
 const methods = {
     componentWillMount({state, dispatch}) {
@@ -18,10 +19,15 @@ const App = ({state, dispatch}) =>
 
       <Route path="/"
              exact
-             render={props => <MyLayout content={Home} /> }
+             render={props => <MyLayout secure={true} content={Home} /> }
       />
 
-      <Route render={props => <div>404</div> }
+      <Route path="/main"
+             exact
+             render={props => <MyLayout secure={true} content={Main} /> }
+      />
+
+      <Route render={props => <MyLayout secure={false} content={() => <div>404</div>} /> }
        />
 
     </Switch>
