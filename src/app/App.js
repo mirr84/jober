@@ -3,12 +3,11 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {Route, Switch} from 'react-router-dom';
 
-import { Button } from 'antd';
+import Home from "./../home/Home";
 
 const methods = {
     componentWillMount({state, dispatch}) {
         console.log('init App');
-
     }
 }
 
@@ -18,7 +17,7 @@ const App = ({state, dispatch}) =>
 
       <Route path="/"
              exact
-             render={props => <div>home</div> }
+             render={props => <Home /> }
       />
 
       <Route render={props => <div>404</div> }
