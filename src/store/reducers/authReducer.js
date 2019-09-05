@@ -4,7 +4,10 @@ import {getStorage} from "../storage/getStorage";
 const initState = {
 
     tonen: null,
-    isAuth: false
+    isAuth: false,
+
+    login: '',
+    password: '',
 
 }
 

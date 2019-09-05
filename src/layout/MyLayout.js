@@ -3,7 +3,7 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {Layout, Modal} from 'antd';
+import {Layout} from 'antd';
 
 import MyProgressModal from './MyProgressModal';
 import MyLoginModal from './MyLoginModal';

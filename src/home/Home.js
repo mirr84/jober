@@ -30,15 +30,6 @@ const Home = ({state, dispatch, history}) =>
                icon="question-circle"
                onClick={() => history.push(`/main`)}/>
 
-               {' '}
-
-      <Button size={'small'}
-              type="primary"
-              icon="question-circle"
-              onClick={() => history.push(`/111`)}>
-              404
-      </Button>
-
     </Spin>
   </div>
 

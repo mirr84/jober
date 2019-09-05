@@ -3,6 +3,7 @@ const init = (app) => {
     const config = [
 
         {url: '/auth/check', method: 'get'},
+        {url: '/auth/login', method: 'get'},
 
     ]
 
