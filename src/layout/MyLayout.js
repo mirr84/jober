@@ -3,12 +3,13 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {Layout, Spin, Icon, Modal} from 'antd';
+import {Layout, Modal} from 'antd';
+
+import MyProgressModal from './MyProgressModal';
+import MyLoginModal from './MyLoginModal';
 
 const {Header, Content, Footer} = Layout;
 
-let isHeader = true;
-let isFooter = true;
 let isCheckSecure = false;
 
 const methods = {
@@ -33,7 +34,7 @@ const methods = {
             .then (
               () => {
                 isCheckSecure = false;
-                dispatch.setter("commonReducer", {});                
+                dispatch.setter("commonReducer", {});
               }
             )
 
@@ -42,22 +43,14 @@ const methods = {
     }
 }
 
-const MyLayout = ({state, dispatch, content: ContentComponent, secure = false}) =>
+const MyLayout = ({state, dispatch, content: ContentComponent, secure = false, isHeader = true, isFooter = true}) =>
   <div>
 
-    <Modal
-            centered
-            visible={isCheckSecure}
-            closable={false}
-            footer={null}
-            zIndex={10000}
-            width={'auto'}
-          >
-            <Spin indicator={<Icon type="loading" style={{fontSize: 100}} spin/>}/>
-    </Modal>
+    <MyProgressModal visible={isCheckSecure} />
+    <MyLoginModal visible={!state.authReducer.isAuth} />
 
   {
-    !isCheckSecure &&
+    !isCheckSecure && state.authReducer.isAuth &&
       <Layout className="layout">
 
         {

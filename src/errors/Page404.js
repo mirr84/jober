@@ -5,7 +5,7 @@ import {doCheck} from "../service/authService";
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
-        console.log('init Page404', secure);
+        console.log('init Page404');
 
         secure && doCheck({dispatch});
     }

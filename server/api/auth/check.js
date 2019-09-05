@@ -1,5 +1,9 @@
 module.exports.check = ({res, token}) => {
 
-    res.sendStatus(401);
+  if (token == 'test_token') {
+    res.sendStatus(200)
+  } else {
+    res.sendStatus(401)
+  }
 
 }

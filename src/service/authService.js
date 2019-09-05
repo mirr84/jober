@@ -1,4 +1,4 @@
-import {request, requestFake} from "./utils";
+import {request} from "./utils";
 
 const reducer = 'authReducer';
 

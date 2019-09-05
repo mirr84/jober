@@ -1,8 +1,6 @@
 import axios from "axios/index";
 import * as querystring from "querystring";
 
-import store from './../index'
-
 export const request = ({dispatch, reducer, progresser, method, data, url}) => {
 
     dispatch.setter(reducer, {[progresser]: true});

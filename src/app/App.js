@@ -20,18 +20,10 @@ const App = ({state, dispatch}) =>
   <div>
     <Switch>
 
-      <Route path="/"
-             exact
-             render={props => <MyLayout secure={true} content={Home} /> }
-      />
+    <Route path="/" exact render={props => <MyLayout secure={true} content={Home} /> } />
+    <Route path="/main" exact render={props => <MyLayout secure={true} content={Main} /> } />
 
-      <Route path="/main"
-             exact
-             render={props => <MyLayout secure={true} content={Main} /> }
-      />
-
-      <Route render={props => <MyLayout secure={false} content={Page404} /> }
-       />
+    <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 
     </Switch>
   </div>
