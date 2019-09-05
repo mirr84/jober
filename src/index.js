@@ -25,7 +25,10 @@ export default store;
 store.subscribe(() => getStorage().storage.setItem('store', JSON.stringify(store.getState())));
 
 axios.interceptors.request.use(
-    (config) => Promise.resolve(config)
+  (config) => {
+    config.headers.token = store.getState().authReducer.token;
+    return Promise.resolve(config);
+  }
 );
 
 ReactDOM.render(

@@ -8,13 +8,13 @@ import {Spin} from 'antd';
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
-        console.log('init Home');
+        console.log('init Main');
 
         secure && doCheck({dispatch});
     }
 }
 
-const Home = ({state, dispatch, history}) =>
+const Main = ({state, dispatch, history}) =>
   <div>
     <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
 
@@ -42,4 +42,4 @@ const Home = ({state, dispatch, history}) =>
     </Spin>
   </div>
 
-export default connector({methods, component: Home});
+export default connector({methods, component: Main});
