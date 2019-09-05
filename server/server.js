@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use(express.static('../build'));
-app.get('/*', (req, res) => res.sendFile(path.resolve('../build', 'index.html')));
+app.get('/', (req, res) => res.sendFile(path.resolve('../build', 'index.html')));
 
 require('./api').init(app);
 

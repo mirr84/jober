@@ -1,6 +1,5 @@
-module.exports.check = ({res}) => {
+module.exports.check = ({res, token}) => {
 
-    res.send({});
+    res.sendStatus(401);
 
 }
-

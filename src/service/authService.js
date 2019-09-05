@@ -12,7 +12,7 @@ export const authService = ({dispatch}) => {
             progresser,
             method: 'get',
             data,
-            url: `auth/check`
+            url: `api/auth/check`
         }),
 
     }
