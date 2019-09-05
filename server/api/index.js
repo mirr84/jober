@@ -4,6 +4,7 @@ const init = (app) => {
 
         {url: '/auth/check', method: 'get'},
         {url: '/auth/login', method: 'get'},
+        {url: '/auth/logout', method: 'get'},
 
     ]
 
