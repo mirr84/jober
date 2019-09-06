@@ -3,8 +3,7 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {Button} from 'antd';
-import {Spin} from 'antd';
+import {Button, Divider, Spin} from 'antd';
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
@@ -35,7 +34,7 @@ const Menu = ({state, dispatch, history}) =>
              icon="experiment"
              onClick={() => history.push(`/science`)}/>
 
-     <hr  />
+     <Divider dashed />
 
   </div>
 
