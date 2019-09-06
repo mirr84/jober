@@ -19,9 +19,9 @@ export const accountService = ({dispatch}) => {
 
 }
 
-export const doListAccount = ({dispatch}) =>
+export const doListAccount = ({dispatch, params}) =>
     accountService({dispatch})
-        .list('isProgressList')
+        .list('isProgressList', params)
         .then(
             (r) => r.data
         )
