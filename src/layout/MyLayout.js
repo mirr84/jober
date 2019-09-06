@@ -3,8 +3,8 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck, doLogout} from "../service/authService";
 
-import {Layout, Button} from 'antd';
-import { PageHeader, Menu, Dropdown, Icon, Tag, Typography, Row } from 'antd';
+import {Layout, Button,  Popconfirm} from 'antd';
+import {PageHeader, Menu, Dropdown, Icon, Tag, Typography, Row} from 'antd';
 
 import MyProgressModal from './MyProgressModal';
 import MyLoginModal from './MyLoginModal';
@@ -63,10 +63,11 @@ const MyLayout = ({state, dispatch, content: ContentComponent, secure = false, i
                            title="Title"
                            subTitle="This is a subtitle"
                            extra={[
-                             <Button size={'small'}
-                                     type="primary"
-                                      icon="logout"
-                                      onClick={ () => doLogout({dispatch}) }/>,
+                             <Popconfirm placement="topLeft" title={'Выйти?'} onConfirm={ () => doLogout({dispatch}) } okText="Yes" cancelText="No">
+                               <Button size={'small'}
+                                       type="primary"
+                                        icon="logout"/>
+                             </Popconfirm>
                            ]}
                          >
                          </PageHeader>
