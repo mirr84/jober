@@ -10,21 +10,21 @@ import Menu from './Menu';
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
-        console.log('init Home');
+        console.log('init Document');
 
         secure && doCheck({dispatch});
     }
 }
 
-const Home = ({state, dispatch, history}) =>
+const Document = ({state, dispatch, history}) =>
   <div>
     <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
 
-      <Menu />
+        <Menu />
 
-      Home
+        Document
 
     </Spin>
   </div>
 
-export default connector({methods, component: Home});
+export default connector({methods, component: Document});

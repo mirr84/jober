@@ -1,8 +1,8 @@
 import {request} from "./utils";
 
-const reducer = 'buildReducer';
+const reducer = 'accountReducer';
 
-export const buildService = ({dispatch}) => {
+export const accountService = ({dispatch}) => {
 
     return {
 
@@ -12,15 +12,15 @@ export const buildService = ({dispatch}) => {
             progresser,
             method: 'get',
             data,
-            url: `api/build/list`
+            url: `api/account/list`
         }),
 
     }
 
 }
 
-export const doListBuild = ({dispatch}) =>
-    buildService({dispatch})
+export const doListAccount = ({dispatch}) =>
+    accountService({dispatch})
         .list('isProgressList')
         .then(
             (r) => r.data

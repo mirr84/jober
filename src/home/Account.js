@@ -2,7 +2,7 @@ import React from 'react';
 
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
-import {doListBuild} from "../service/buildService";
+import {doListAccount} from "../service/accountService";
 
 import {Button, Spin, Card, Icon } from 'antd';
 
@@ -10,20 +10,20 @@ import Menu from './Menu';
 
 const { Meta } = Card;
 
-let listBuild = {};
+let listData = {};
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
-        console.log('init Build');
+        console.log('init Account');
 
         secure &&
           doCheck({dispatch})
             .then(
-              () => doListBuild({dispatch})
+              () => doListAccount({dispatch})
                 .then(
                   (r) => {
-                    listBuild = r;
-                    dispatch.setter("buildReducer", {});
+                    listData = r;
+                    dispatch.setter("accountReducer", {});
                   }
                 )
             )
@@ -37,12 +37,12 @@ const Build = ({state, dispatch, history}) =>
 
         <Menu />
 
-        <Spin tip="Loading..." spinning={state.buildReducer.isProgressList} >
+        <Spin tip="Loading..." spinning={state.accountReducer.isProgressList} >
 
           <Card>
 
             {
-              listBuild && listBuild.list && listBuild.list.map(
+              listData && listData.list && listData.list.map(
                 (r) => <Card.Grid>
                         <Meta title="Europe Street beat"
                               description="www.instagram.com" />

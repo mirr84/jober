@@ -6,9 +6,11 @@ const init = (app) => {
         {url: '/auth/login', method: 'get'},
         {url: '/auth/logout', method: 'get'},
 
-        {url: '/build/list', method: 'get'},
+        {url: '/account/list', method: 'get'},
 
-        {url: '/science/list', method: 'get'},
+        {url: '/category/list', method: 'get'},
+
+        {url: '/document/list', method: 'get'},
 
     ]
 

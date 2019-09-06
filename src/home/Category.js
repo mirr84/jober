@@ -10,21 +10,21 @@ import Menu from './Menu';
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
-        console.log('init Science');
+        console.log('init Category');
 
         secure && doCheck({dispatch});
     }
 }
 
-const Science = ({state, dispatch, history}) =>
+const Category = ({state, dispatch, history}) =>
   <div>
     <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
 
         <Menu />
 
-        Science
+        Category
 
     </Spin>
   </div>
 
-export default connector({methods, component: Science});
+export default connector({methods, component: Category});

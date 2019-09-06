@@ -17,22 +17,29 @@ const Menu = ({state, dispatch, history}) =>
 
     <Button size={'small'}
             type="primary"
-             icon="solution"
+             icon="home"
              onClick={() => history.push(`/`)}/>
 
              {' '}
 
      <Button size={'small'}
              type="primary"
-             icon="home"
-             onClick={() => history.push(`/build`)}/>
+             icon="menu-unfold"
+             onClick={() => history.push(`/account`)}/>
 
              {' '}
 
     <Button size={'small'}
              type="primary"
-             icon="experiment"
-             onClick={() => history.push(`/science`)}/>
+             icon="ordered-list"
+             onClick={() => history.push(`/category`)}/>
+
+             {' '}
+
+    <Button size={'small'}
+            type="primary"
+            icon="exception"
+            onClick={() => history.push(`/document`)}/>
 
      <Divider dashed />
 
