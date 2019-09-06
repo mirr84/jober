@@ -11,7 +11,7 @@ import Menu from './Menu';
 const { Meta } = Card;
 
 let listData = {};
-let pagination = {};
+let pagination = { pageSize: 20 };
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
@@ -22,13 +22,7 @@ const methods = {
         secure &&
           doCheck({dispatch})
             .then(
-              () => doListAccount({dispatch})
-                .then(
-                  (r) => {
-                    listData = r;
-                    dispatch.setter("accountReducer", {});
-                  }
-                )
+              () => fetch(dispatch)
             )
 
     }
@@ -43,7 +37,6 @@ const fetch = (dispatch, params = {}) => {
           listData = data;
           pagination = { ...pagination };
           pagination.total = data.total_count;
-
           dispatch.setter("accountReducer", {});
         }
       )
@@ -56,17 +49,17 @@ const columns = [
     dataIndex: 'name',
     sorter: true,
     render: name => `${name}`,
-    width: '20%',
   },
   {
     title: 'Gender',
     dataIndex: 'gender',
+    sorter: true,
     filters: [{ text: 'Male', value: 'male' }, { text: 'Female', value: 'female' }],
-    width: '20%',
   },
   {
     title: 'Email',
     dataIndex: 'email',
+    sorter: true,
   },
 ];
 
@@ -92,11 +85,8 @@ const Build = ({state, dispatch, history}) =>
 
         <Menu />
 
-          {
-            JSON.stringify( listData )
-          }
-
         <Table
+          size="small"
           columns={columns}
           rowKey={record => record}
           dataSource={listData.list}
