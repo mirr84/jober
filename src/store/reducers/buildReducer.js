@@ -2,20 +2,13 @@ import {ACTION_SETTER} from "../actions/actionConst";
 import {getStorage} from "../storage/getStorage";
 
 const initState = {
-
-    token: null,
-    isAuth: false,
-
-    login: '',
-    password: '',
-
 }
 
-export const authReducer = (state = getStorage().getInitStorage('authReducer', initState), action) => {
+export const buildReducer = (state = getStorage().getInitStorage('buildReducer', initState), action) => {
 
     let newState = Object.assign({}, state);
 
-    if (action.reducer === 'authReducer') {
+    if (action.reducer === 'buildReducer') {
         if (action.type === ACTION_SETTER) {
             newState = Object.assign(newState, action.payload);
         }

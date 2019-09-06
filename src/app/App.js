@@ -6,7 +6,8 @@ import {Route, Switch} from 'react-router-dom';
 import MyLayout from "./../layout/MyLayout";
 
 import Home from "./../home/Home";
-import Main from "./../home/Main";
+import Build from "./../home/Build";
+import Science from "./../home/Science";
 
 import Page404 from "./../errors/Page404";
 
@@ -21,7 +22,8 @@ const App = ({state, dispatch}) =>
     <Switch>
 
     <Route path="/" exact render={props => <MyLayout secure={true} content={Home} /> } />
-    <Route path="/main" exact render={props => <MyLayout secure={true} content={Main} /> } />
+    <Route path="/build" exact render={props => <MyLayout secure={true} content={Build} /> } />
+    <Route path="/science" exact render={props => <MyLayout secure={true} content={Science} /> } />
 
     <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 
