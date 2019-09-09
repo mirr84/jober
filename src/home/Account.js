@@ -4,7 +4,7 @@ import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 import {doListAccount} from "../service/accountService";
 
-import {Button, Spin, Card, Icon, Table} from 'antd';
+import {Button, Spin, Card, Icon, Table, Tooltip, Divider} from 'antd';
 
 import Menu from './Menu';
 
@@ -84,6 +84,15 @@ const Build = ({state, dispatch, history}) =>
     <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
 
         <Menu />
+
+        <Tooltip title={'category'} placement="bottomLeft">
+            <Button size={'small'}
+                     type="primary"
+                     icon="plus"
+                     onClick={() => history.push(`/account/create`)}/>
+        </Tooltip>
+
+        <Divider dashed />
 
         <Table
           size="small"
