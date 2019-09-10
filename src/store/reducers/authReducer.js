@@ -3,6 +3,11 @@ import {getStorage} from "../storage/getStorage";
 
 const initState = {
 
+    isProgressCheck: false,
+    isProgressLogin: false,
+    isProgressReg: false,
+    isProgressLogout: false,
+
     token: null,
     isAuth: false,
 

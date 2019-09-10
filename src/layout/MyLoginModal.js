@@ -3,7 +3,7 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doLogin, doRegistration} from "../service/authService";
 
-import {Modal, Input, Tooltip, Icon, Button, Tabs, message, Spin} from 'antd';
+import {Modal, Input, Tooltip, Icon, Button, Tabs, Spin} from 'antd';
 
 const { TabPane } = Tabs;
 
@@ -28,7 +28,7 @@ const MyLoginModal = ({state, dispatch, visible = false}) =>
         footer={null}
       >
 
-      <Spin tip="Loading..." spinning={state.authReducer.isProgressLogin || state.authReducer.isProgressReg} >
+      <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck || state.authReducer.isProgressLogin || state.authReducer.isProgressReg} >
 
         <Tabs defaultActiveKey="1" onChange={changeTabs}>
           <TabPane tab="Авторизация" key="auth">
@@ -96,21 +96,7 @@ const MyLoginModal = ({state, dispatch, visible = false}) =>
 
             <Button type="primary"
                     disabled={ !state.authReducer.login || !state.authReducer.email || !state.authReducer.password }
-                    onClick={ () =>
-                      doRegistration({dispatch, ...state.authReducer})
-                        .then(
-                          (r) => {
-                            message.success('Registration complete!');
-                            dispatch.setter( 'authReducer', {password: ''} );
-                          }
-                        )
-                        .catch(
-                          (e) => {
-                            message.error('Registration fail!');
-                            dispatch.setter( 'authReducer', {password: ''} );
-                          }
-                        )
-                   }
+                    onClick={ () => doRegistration({dispatch, ...state.authReducer}) }
             >
             Регистрация
             </Button>

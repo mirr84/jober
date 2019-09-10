@@ -24,6 +24,9 @@ export const request = ({dispatch, reducer, progresser, method, data, url}) => {
                 if (error.response.status === 401) {
                     dispatch.setter(reducer, {token: null, isAuth: false})
                 }
+                if (error.response.status === 500) {
+                    dispatch.setter(reducer, {isAuth: false})
+                }
                 dispatch.setter(reducer, {[progresser]: false});
                 throw new Error();
             }
