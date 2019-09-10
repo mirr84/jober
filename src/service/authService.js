@@ -1,4 +1,5 @@
 import {request} from "./utils";
+import * as md5 from "md5";
 
 const reducer = 'authReducer';
 
@@ -58,7 +59,7 @@ export const doCheck = ({dispatch}) =>
 
 export const doLogin = ({dispatch, login, password}) =>
     authService({dispatch})
-        .login('isProgressLogin', {login, password})
+        .login('isProgressLogin', {login, password: md5(password)})
         .then(
             (r) => dispatch.setter( 'authReducer', { token: r.data, isAuth: true } )
         )
@@ -68,7 +69,7 @@ export const doLogin = ({dispatch, login, password}) =>
 
 export const doRegistration = ({dispatch, login, password, email}) =>
     authService({dispatch})
-        .reg('isProgressReg', {login, password, email})
+        .reg('isProgressReg', {login, password: md5(password), email})
 
 export const doLogout = ({dispatch}) =>
     authService({dispatch})
