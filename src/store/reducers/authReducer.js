@@ -8,6 +8,7 @@ const initState = {
 
     login: '',
     password: '',
+    email: '',
 
 }
 

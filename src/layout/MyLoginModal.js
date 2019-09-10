@@ -1,9 +1,11 @@
 import React from 'react';
 
 import {connector} from "./../store/connectors";
-import {doLogin} from "../service/authService";
+import {doLogin, doRegistration} from "../service/authService";
 
-import {Modal, Input, Tooltip, Icon, Button} from 'antd';
+import {Modal, Input, Tooltip, Icon, Button, Tabs, message} from 'antd';
+
+const { TabPane } = Tabs;
 
 const methods = {
     componentWillMount({state, dispatch}) {
@@ -13,6 +15,11 @@ const methods = {
     }
 }
 
+const changeTabs = (key) => {
+  console.log(key);
+}
+
+
 const MyLoginModal = ({state, dispatch, visible = false}) =>
 <Modal
         centered
@@ -21,32 +28,92 @@ const MyLoginModal = ({state, dispatch, visible = false}) =>
         footer={null}
       >
 
-      <Input
-          placeholder="login"
-          prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-          suffix={
-            <Tooltip title="Extra information">
-              <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
-            </Tooltip>
-          }
-          defaultValue={state.authReducer.login}
-          onChange={ ({target: {value: login}}) => dispatch.setter( 'authReducer', {login} ) }
-        />
+      <Tabs defaultActiveKey="1" onChange={changeTabs}>
+        <TabPane tab="Авторизация" key="auth">
+          <Input
+              placeholder="login"
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              suffix={
+                <Tooltip title="Extra information">
+                  <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+              value={state.authReducer.login}
+              onChange={ ({target: {value: login}}) => dispatch.setter( 'authReducer', {login} ) }
+            />
 
-      <Input.Password
-          placeholder="password"
-          prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-          defaultValue={state.authReducer.password}
-          onChange={ ({target: {value: password}}) => dispatch.setter( 'authReducer', {password} ) }
-        />
+          <Input.Password
+              placeholder="password"
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              value={state.authReducer.password}
+              onChange={ ({target: {value: password}}) => dispatch.setter( 'authReducer', {password} ) }
+            />
 
-      <br  />
-      <br  />
+          <br  />
+          <br  />
 
-      <Button type="primary"
-              disabled={ !state.authReducer.login || !state.authReducer.password }
-              onClick={ () => doLogin({dispatch, ...state.authReducer}) }
-      >Войти</Button>
+          <Button type="primary"
+                  disabled={ !state.authReducer.login || !state.authReducer.password }
+                  onClick={ () => doLogin({dispatch, ...state.authReducer}) }
+          >
+          Войти
+          </Button>
+        </TabPane>
+        <TabPane tab="Регистрация" key="reg">
+          <Input
+              placeholder="login"
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              suffix={
+                <Tooltip title="Extra information">
+                  <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+                </Tooltip>
+              }
+              value={state.authReducer.login}
+              onChange={ ({target: {value: login}}) => dispatch.setter( 'authReducer', {login} ) }
+            />
+          <Input
+                placeholder="email"
+                prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                suffix={
+                  <Tooltip title="Extra information">
+                    <Icon type="info-circle" style={{ color: 'rgba(0,0,0,.45)' }} />
+                  </Tooltip>
+                }
+                value={state.authReducer.email}
+                onChange={ ({target: {value: email}}) => dispatch.setter( 'authReducer', {email} ) }
+            />
+          <Input.Password
+              placeholder="password"
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              value={state.authReducer.password}
+              onChange={ ({target: {value: password}}) => dispatch.setter( 'authReducer', {password} ) }
+            />
+
+          <br  />
+          <br  />
+
+          <Button type="primary"
+                  disabled={ !state.authReducer.login || !state.authReducer.email || !state.authReducer.password }
+                  onClick={ () =>
+                    doRegistration({dispatch, ...state.authReducer})
+                      .then(
+                        (r) => {
+                          message.success('Registration complete!');
+                          dispatch.setter( 'authReducer', {password: ''} );
+                        }
+                      )
+                      .catch(
+                        (e) => {
+                          message.error('Registration fail!');
+                          dispatch.setter( 'authReducer', {password: ''} );
+                        }
+                      )
+                 }
+          >
+          Регистрация
+          </Button>
+        </TabPane>
+      </Tabs>
 
 </Modal>
 

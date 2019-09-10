@@ -24,6 +24,15 @@ export const authService = ({dispatch}) => {
             url: `api/auth/login`
         }),
 
+        reg: (progresser, data) => request({
+            dispatch,
+            reducer,
+            progresser,
+            method: 'get',
+            data,
+            url: `api/auth/reg`
+        }),
+
         logout: (progresser, data) => request({
             dispatch,
             reducer,
@@ -57,6 +66,9 @@ export const doLogin = ({dispatch, login, password}) =>
             (e) => {}
         )
 
+export const doRegistration = ({dispatch, login, password, email}) =>
+    authService({dispatch})
+        .reg('isProgressReg', {login, password, email})
 
 export const doLogout = ({dispatch}) =>
     authService({dispatch})
