@@ -1,5 +1,12 @@
 module.exports.logout = ({res, token}) => {
 
-    res.sendStatus(200)
+  if (!token) {
+    res.sendStatus(401)
+    return;
+  }
+
+  
+
+  res.sendStatus(200)
 
 }

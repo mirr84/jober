@@ -10,24 +10,47 @@ module.exports.login = ({res, login, password}) => {
       return;
     }
 
-    // require('../../db/db').connector()
-    //   .then(
-    //       (conn) => {
-    //           connection = conn;
-    //           return connection.query(`SELECT * FROM users a WHERE login = '${login}' AND password = '${password}'`);
-    //           res.status(200).send('test_token')
-    //       }
-    //   )
-    //   .catch(
-    //       () => {
-    //         res.sendStatus(500)
-    //       }
-    //   );
+    let token = '';
 
-    if ( login == '11' && password == 'b6d767d2f8ed5d21a44b0e5886680cb9' ) {
-      res.status(200).send('test_token')
-    } else {
-      res.sendStatus(401)
-    }
+    require('../../db/db').connector()
+      .then(
+          (conn) => {
+              connection = conn;
+          }
+      )
+      .then(
+          (conn) => connection.query(`SELECT count(*) as 'c' FROM users a WHERE login = '${login}' AND password = '${password}'`)
+      )
+      .then(
+        (rows) => {
+          if (rows[0].c == 1) {
+            token = require('../../utils/makeGenerators').makeToken();
+            return token;
+          } else {
+            throw (401);
+          }
+        }
+      )
+      .then(
+        (token) => connection.query(`INSERT INTO token (token) VALUES ('${token}')`)
+      )
+      .then(
+        ({insertId}) => connection.query(`UPDATE users SET token_id = '${insertId}' WHERE login = '${login}'`)
+      )
+      .then(
+        () => {
+          res.status(200).send(token);
+        }
+      )
+      .then(
+        () => {
+          if (connection && connection.end) connection.end();
+        }
+      )
+      .catch(
+          (status = 500) => {
+            res.sendStatus(status);
+          }
+      );
 
 }
