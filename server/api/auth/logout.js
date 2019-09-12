@@ -5,8 +5,36 @@ module.exports.logout = ({res, token}) => {
     return;
   }
 
-  
-
-  res.sendStatus(200)
+  require('../../db/db').connector()
+    .then(
+        (conn) => {
+            connection = conn;
+        }
+    )
+    .then(
+        (conn) => connection.query(`
+            UPDATE users SET token_id = NULL
+            WHERE token_id = (
+                SELECT a.id
+                FROM token a
+                WHERE a.token = '${token}'
+            )
+        `)
+    )
+    .then(
+      () => {
+        res.sendStatus(200);
+      }
+    )
+    .then(
+      () => {
+        if (connection && connection.end) connection.end();
+      }
+    )
+    .catch(
+        (status = 500) => {
+          res.sendStatus(status);
+        }
+    );
 
 }

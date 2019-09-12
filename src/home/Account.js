@@ -45,22 +45,18 @@ const fetch = (dispatch, params = {}) => {
 
 const columns = [
   {
-    title: 'Name',
-    dataIndex: 'name',
+    title: 'key',
+    dataIndex: 'key',
     sorter: true,
-    render: name => `${name}`,
+    render: key => `${key}`,
+    width: 150,
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
+    title: 'description',
+    dataIndex: 'description',
     sorter: true,
     filters: [{ text: 'Male', value: 'male' }, { text: 'Female', value: 'female' }],
-  },
-  {
-    title: 'Email',
-    dataIndex: 'email',
-    sorter: true,
-  },
+  }
 ];
 
 const handleTableChange = (dispatch, pagination, filters, sorter) => {

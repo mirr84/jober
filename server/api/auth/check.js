@@ -12,7 +12,12 @@ module.exports.check = ({res, token}) => {
         }
     )
     .then(
-        (conn) => connection.query(`SELECT count(*) as 'c' FROM token a WHERE a.token = '${token}'`)
+        (conn) => connection.query(`
+              SELECT count(*) as 'c'
+              FROM users a
+              LEFT JOIN token b ON a.token_id = b.id
+              WHERE b.token = '${token}'
+        `)
     )
     .then(
       (rows) => {
