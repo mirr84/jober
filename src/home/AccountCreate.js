@@ -20,14 +20,17 @@ const methods = {
     }
 }
 
-const steps = [
+const FirstStepCreateAccount = ({state, dispatch}) =>
+  <div>
+    {
+      JSON.stringify(state)
+    }
+  </div>
+
+const steps = ({state, dispatch}) => [
   {
     title: 'First',
-    content: 'First-content',
-  },
-  {
-    title: 'Second',
-    content: 'Second-content',
+    content: <FirstStepCreateAccount state={state}  dispatch={dispatch} />,
   },
   {
     title: 'Last',
@@ -55,18 +58,18 @@ const AccountCreate = ({state, dispatch, history}) =>
         AccountCreate
 
         <Steps current={current}>
-          {steps.map(item => (
-            <Step key={item.title} title={item.title} />
-          ))}
+          {
+            steps({state, dispatch}).map(item => (<Step key={item.title} title={item.title} />))
+          }
         </Steps>
-        <div className="steps-content">{steps[current].content}</div>
+        <div className="steps-content">{steps({state, dispatch})[current].content}</div>
         <div className="steps-action">
-          {current < steps.length - 1 && (
+          {current < steps({state, dispatch}).length - 1 && (
             <Button size="small" type="primary" onClick={() => next({dispatch})}>
               Next
             </Button>
           )}
-          {current === steps.length - 1 && (
+          {current === steps({state, dispatch}).length - 1 && (
             <Button size="small" type="primary" onClick={() => message.success('Processing complete!')}>
               Done
             </Button>

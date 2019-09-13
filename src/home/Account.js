@@ -93,7 +93,7 @@ const Build = ({state, dispatch, history}) =>
         <Table
           size="small"
           columns={columns}
-          rowKey={record => record}
+          rowKey={record => record.key}
           dataSource={listData.list}
           pagination={pagination}
           loading={state.accountReducer.isProgressList}

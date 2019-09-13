@@ -1,6 +1,6 @@
-module.exports.list = ({res, token}) => {
+module.exports.list = ({res, token, results, page, sortField, sortOrder }) => {
 
-  // results=20&page=1&sortField=name&sortOrder=ascend&gender=female
+  console.log(fields)
 
   require('../../utils/users_id')
     .users_id({token})
