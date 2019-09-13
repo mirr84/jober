@@ -1,5 +1,5 @@
 module.exports.reg = ({res, login, password, email}) => {
 
-    res.sendStatus(200)
+    res.sendStatus(500)
 
 }
