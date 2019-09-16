@@ -8,6 +8,7 @@ const init = (app) => {
         {url: '/auth/logout', method: 'get'},
 
         {url: '/account/list', method: 'get'},
+        {url: '/account/add', method: 'post'},
 
         {url: '/category/list', method: 'get'},
 

@@ -1,4 +1,9 @@
-module.exports.list = ({res, token, results, page, sortField, sortOrder }) => {
+module.exports.add = ({res, token, description }) => {
+
+  if (!description) {
+    res.sendStatus(500)
+    return;
+  }
 
   require('../../utils/users_id')
     .users_id({token})
@@ -14,16 +19,12 @@ module.exports.list = ({res, token, results, page, sortField, sortOrder }) => {
                 }
             )
             .then(
-                (conn) => connection.query(`
-                   SELECT a.key, a.description
-                   FROM account a
-                   WHERE a.users_id = '${id}'
-               `)
+                () => connection.query(`
+                  INSERT INTO account (\`key\`, description, users_id)
+                               VALUES ('${require('../../utils/makeGenerators').makeNumber(10)}', '${description}', '${id}')`)
             )
             .then(
-              (list) => {
-                res.status(200).send({list, total_count: list.length})
-              }
+                () => res.sendStatus(200)
             )
             .then(
               () => {

@@ -7,8 +7,7 @@ const connector = () =>
             ({error, res, connection}) => {
                 if (connection && connection.end) connection.end();
 
-                throw {};
-
+                throw 500;
             }
         );
 

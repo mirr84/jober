@@ -2,8 +2,9 @@ import React from 'react';
 
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
+import {doAddAccount} from "../service/accountService";
 
-import {Spin, Steps, Button, message} from 'antd';
+import {Spin, Steps, Button, message, Input} from 'antd';
 
 import Menu from './Menu';
 
@@ -20,21 +21,33 @@ const methods = {
     }
 }
 
-const FirstStepCreateAccount = ({state, dispatch}) =>
+const AccountCreateFirstStep = ({state, dispatch}) =>
   <div>
-    {
-      JSON.stringify(state)
-    }
+    <br />
+    <Input placeholder="описание счета"
+           value={ state.accountReducer.description }
+           onChange = { ({target: {value : description} }) => dispatch.setter ( 'accountReducer', {description} ) }
+       />
+    <br />
+    <br />
   </div>
+
+const AccountCreateFinishStep = ({state, dispatch}) =>
+    <div>
+      <br />
+        description: { state.accountReducer.description }
+      <br />
+      <br />
+    </div>
 
 const steps = ({state, dispatch}) => [
   {
-    title: 'First',
-    content: <FirstStepCreateAccount state={state}  dispatch={dispatch} />,
+    title: 'Параметры',
+    content: <AccountCreateFirstStep state={state}  dispatch={dispatch} />,
   },
   {
-    title: 'Last',
-    content: 'Last-content',
+    title: 'Завершение',
+    content: <AccountCreateFinishStep state={state}  dispatch={dispatch} />,
   },
 ];
 
@@ -51,11 +64,9 @@ const prev = ({dispatch}) => {
 
 const AccountCreate = ({state, dispatch, history}) =>
   <div>
-    <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
+    <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck || state.accountReducer.isProgressAdd } >
 
         <Menu />
-
-        AccountCreate
 
         <Steps current={current}>
           {
@@ -70,7 +81,16 @@ const AccountCreate = ({state, dispatch, history}) =>
             </Button>
           )}
           {current === steps({state, dispatch}).length - 1 && (
-            <Button size="small" type="primary" onClick={() => message.success('Processing complete!')}>
+            <Button size="small"
+                    type="primary"
+                    onClick={
+                      () => doAddAccount(
+                        {
+                          dispatch,
+                          params: { description: state.accountReducer.description }
+                        }
+                      )
+                    }>
               Done
             </Button>
           )}

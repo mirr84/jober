@@ -15,6 +15,15 @@ export const accountService = ({dispatch}) => {
             url: `api/account/list`
         }),
 
+        add: (progresser, data) => request({
+            dispatch,
+            reducer,
+            progresser,
+            method: 'post',
+            data,
+            url: `api/account/add`
+        }),
+
     }
 
 }
@@ -27,4 +36,14 @@ export const doListAccount = ({dispatch, params}) =>
         )
         .catch(
             (e) => e
+        )
+
+export const doAddAccount = ({dispatch, params}) =>
+    accountService({dispatch})
+        .add('isProgressAdd', params)
+        .then(
+            (r) => {}
+        )
+        .catch(
+            (e) => {}
         )

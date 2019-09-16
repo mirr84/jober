@@ -24,14 +24,8 @@ const methods = {
 
           doCheck({dispatch})
             .then(
-              () => {
-                // успех проверки авторизации
-                dispatch.setter("authReducer", { isAuth: true });
-              },
-              () => {
-                // ошибка проверка авторизации
-                dispatch.setter("authReducer", { isAuth: false });
-              }
+              () => {},
+              () => {}
             )
             .then (
               () => {

@@ -29,7 +29,7 @@ const methods = {
 }
 
 const fetch = (dispatch, params = {}) => {
-    console.log('params:', params);
+    // console.log('params:', params);
 
     doListAccount({dispatch, params})
       .then(
