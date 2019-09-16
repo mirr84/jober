@@ -11,6 +11,7 @@ module.exports.login = ({res, login, password}) => {
     }
 
     let token = '';
+    let connection;
 
     require('../../db/db').connector()
       .then(
