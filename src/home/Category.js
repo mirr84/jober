@@ -3,14 +3,14 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {doListCategoty, doUpdateCategoty} from "../service/categoryService";
+import {doListCategoty, doUpdateCategoty, doAddCategoty} from "../service/categoryService";
 
-import {Button, Tooltip, Divider, Spin, Table, Switch, Icon} from 'antd';
+import {Button, Tooltip, Divider, Spin, Table, Switch, Icon, Input} from 'antd';
 
 import Menu from './Menu';
 
 let listData = {};
-let pagination = { pageSize: 20 };
+let pagination = { pageSize: 20, position: 'both' };
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
@@ -44,17 +44,27 @@ const columns = ({dispatch}) => [
     dataIndex: 'id',
     sorter: true,
     render: id => `${id}`,
-    width: 150
+    width: 50
   },
   {
     title: 'description',
     dataIndex: 'description',
     sorter: true,
+    render: (text, record) => <Input value={text}
+                onChange={
+                  ({target: {value: description}}) => {
+                    record.description = description;
+                    dispatch.setter("categoryReducer", {});
+                  }
+                 }
+                 onBlur={ () => doUpdateCategoty({dispatch, params: record}) }
+                 placeholder="description" />
   },
   {
     title: 'Доход',
     dataIndex: 'income',
     sorter: true,
+    width: 100,
     render: (text, record) => <Switch
         checked={!!text}
         onChange={
@@ -73,6 +83,7 @@ const columns = ({dispatch}) => [
     title: 'Расход',
     dataIndex: 'expenditure',
     sorter: true,
+    width: 100,
     render: (text, record) => <Switch
         checked={!!text}
         onChange={
@@ -108,7 +119,12 @@ const handleTableChange = (dispatch, pagination, filters, sorter) => {
 
 const Category = ({state, dispatch, history}) =>
   <div>
-    <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck || state.categoryReducer.isProgressUpdate} >
+    <Spin tip="Loading..." spinning={
+          state.authReducer.isProgressCheck ||
+          state.categoryReducer.isProgressList ||
+          state.categoryReducer.isProgressUpdate ||
+          state.categoryReducer.isProgressAdd
+        } >
 
         <Menu />
 
@@ -116,7 +132,12 @@ const Category = ({state, dispatch, history}) =>
               <Button size={'small'}
                        type="primary"
                        icon="plus"
-                       onClick={() => history.push(`/category/create`)}/>
+                       onClick={() => {
+                          doAddCategoty({dispatch})
+                            .then(
+                              () => fetch(dispatch)
+                            )
+                       } }/>
           </Tooltip>
 
           <Divider dashed />

@@ -11,7 +11,7 @@ import Menu from './Menu';
 const { Meta } = Card;
 
 let listData = {};
-let pagination = { pageSize: 20 };
+let pagination = { pageSize: 20, position: 'both' };
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {

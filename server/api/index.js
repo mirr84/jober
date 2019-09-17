@@ -12,6 +12,7 @@ const init = (app) => {
 
         {url: '/category/list', method: 'get'},
         {url: '/category/update', method: 'post'},
+        {url: '/category/add', method: 'get'},
 
         {url: '/document/list', method: 'get'},
 
