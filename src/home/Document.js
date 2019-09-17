@@ -3,14 +3,18 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {Button} from 'antd';
-import {Spin} from 'antd';
+import {Button, Tabs, Spin, Divider} from 'antd';
 
 import Menu from './Menu';
 
+const { TabPane } = Tabs;
+
+let defaultActiveKey;
+
 const methods = {
-    componentWillMount({state, dispatch, secure}) {
-        console.log('init Document');
+    componentWillMount({state, dispatch, secure, history}) {
+        let [,p1,p2] = history.location.pathname.split('/')
+        defaultActiveKey = p2 ? p2 : 'income';
 
         secure && doCheck({dispatch});
     }
@@ -22,7 +26,21 @@ const Document = ({state, dispatch, history}) =>
 
         <Menu />
 
-        Document
+        <Tabs defaultActiveKey={defaultActiveKey} onChange={ (key) => history.push(`/document/${key}`) }>
+          <TabPane tab="Доход" key="income">
+            Content of Tab Pane 1
+          </TabPane>
+          <TabPane tab="Расход" key="expenditure">
+            Content of Tab Pane 2
+          </TabPane>
+          <TabPane tab="Перевод" key="transaction">
+            Content of Tab Pane 2
+          </TabPane>
+        </Tabs>
+
+        <Divider dashed />
+
+
 
     </Spin>
   </div>

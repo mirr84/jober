@@ -31,6 +31,10 @@ const App = ({state, dispatch}) =>
 
     <Route path="/account/create" exact render={props => <MyLayout secure={true} content={AccountCreate} /> } />
 
+    <Route path="/document/income" exact render={props => <MyLayout secure={true} content={Document} /> } />
+    <Route path="/document/expenditure" exact render={props => <MyLayout secure={true} content={Document} /> } />
+    <Route path="/document/transaction" exact render={props => <MyLayout secure={true} content={Document} /> } />
+
     <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 
     </Switch>
