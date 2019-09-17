@@ -57,7 +57,8 @@ const MyLayout = ({state, dispatch, content: ContentComponent, secure = false, i
                            title="Title"
                            subTitle="This is a subtitle"
                            extra={[
-                             <Popconfirm placement="topLeft" title={'Выйти?'} onConfirm={ () => doLogout({dispatch}) } okText="Yes" cancelText="No">
+                             <Popconfirm key={'PopconfirmExit'} placement="topLeft" 
+                                         title={'Выйти?'} onConfirm={ () => doLogout({dispatch}) } okText="Yes" cancelText="No">
                                <Button size={'small'}
                                        type="primary"
                                         icon="logout"/>
