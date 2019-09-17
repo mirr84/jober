@@ -81,7 +81,7 @@ const Build = ({state, dispatch, history}) =>
 
         <Menu />
 
-        <Tooltip title={'category'} placement="bottomLeft">
+        <Tooltip title={'account create'} placement="bottomLeft">
             <Button size={'small'}
                      type="primary"
                      icon="plus"

@@ -11,6 +11,7 @@ import Category from "./../home/Category";
 import Document from "./../home/Document";
 
 import AccountCreate from "./../home/AccountCreate";
+import CategoryCreate from "./../home/CategoryCreate";
 
 import Page404 from "./../errors/Page404";
 
@@ -30,6 +31,7 @@ const App = ({state, dispatch}) =>
     <Route path="/document" exact render={props => <MyLayout secure={true} content={Document} /> } />
 
     <Route path="/account/create" exact render={props => <MyLayout secure={true} content={AccountCreate} /> } />
+    <Route path="/category/create" exact render={props => <MyLayout secure={true} content={CategoryCreate} /> } />
 
     <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 

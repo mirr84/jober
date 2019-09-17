@@ -3,8 +3,7 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {Button} from 'antd';
-import {Spin} from 'antd';
+import {Button, Tooltip, Divider, Spin} from 'antd';
 
 import Menu from './Menu';
 
@@ -22,7 +21,16 @@ const Category = ({state, dispatch, history}) =>
 
         <Menu />
 
-        Category
+          <Tooltip title={'category create'} placement="bottomLeft">
+              <Button size={'small'}
+                       type="primary"
+                       icon="plus"
+                       onClick={() => history.push(`/category/create`)}/>
+          </Tooltip>
+
+          <Divider dashed />
+
+          Category
 
     </Spin>
   </div>
