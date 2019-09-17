@@ -5,7 +5,7 @@ import {doCheck} from "../service/authService";
 
 import {doListCategoty, doUpdateCategoty, doAddCategoty} from "../service/categoryService";
 
-import {Button, Tooltip, Divider, Spin, Table, Switch, Icon, Input} from 'antd';
+import {Button, Tooltip, Divider, Spin, Table, Switch, Icon, Input, Tag} from 'antd';
 
 import Menu from './Menu';
 
@@ -39,6 +39,14 @@ const fetch = (dispatch, params = {}) => {
 };
 
 const columns = ({dispatch}) => [
+  {
+    render: (text, record) =>
+        record.description.trim() && (record.income || record.expenditure) &&
+        <Tag color="green"><Icon type="check" /></Tag>
+        ||
+        <Tag color="orange"><Icon type="question" /></Tag>,
+    width: 50
+  },
   {
     title: 'id',
     dataIndex: 'id',
