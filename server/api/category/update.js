@@ -1,4 +1,4 @@
-module.exports.update = ({res, token, id, description, income, expenditure}) => {
+module.exports.update = ({res, token, id, ...params}) => {
 
   require('../../utils/users_id')
     .users_id({token})
@@ -6,6 +6,7 @@ module.exports.update = ({res, token, id, description, income, expenditure}) => 
         (users_id) => {
 
           let connection;
+          let {description, income, expenditure, deleted} = params;
 
           require('../../db/db').connector()
             .then(
@@ -15,7 +16,10 @@ module.exports.update = ({res, token, id, description, income, expenditure}) => 
             )
             .then(
                 () => connection.query(`
-                  UPDATE category SET description = '${description}', income = '${income ? 1 : 0}', expenditure='${expenditure ? 1 : 0}'
+                  UPDATE category SET description = '${description}',
+                                      income = '${income ? 1 : 0}',
+                                      expenditure = '${expenditure ? 1 : 0}',
+                                      deleted ='${deleted ? 1 : 0}'
                   WHERE users_id = '${users_id}' AND id = '${id}'
                                `)
             )

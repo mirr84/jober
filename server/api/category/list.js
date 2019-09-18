@@ -1,4 +1,10 @@
-module.exports.list = ({res, token, results=20, page=1, sortField = null, sortOrder = 'ascend'}) => {
+module.exports.list = (
+  {
+    res, token,
+    results = 20, page = 1, sortField = null, sortOrder = 'ascend',
+    ...params
+  }
+) => {
 
   require('../../utils/users_id')
     .users_id({token})
@@ -8,7 +14,10 @@ module.exports.list = ({res, token, results=20, page=1, sortField = null, sortOr
           let connection;
           let total_count = 0;
 
+          let {description, income, expenditure, deleted = 0} = params;
+
           let orderBy = sortField ? `ORDER BY a.${sortField} ${sortOrder === 'ascend' ? 'ASC' : ''} ${sortOrder === 'descend' ? 'DESC' : ''} ` : '';
+          let whereDelete = deleted ? '' : `AND a.deleted = '0'`;
 
           require('../../db/db').connector()
             .then(
@@ -17,7 +26,11 @@ module.exports.list = ({res, token, results=20, page=1, sortField = null, sortOr
                 }
             )
             .then(
-                (conn) => connection.query(`SELECT count(*) as 'c' FROM category a WHERE a.users_id = '${id}'`)
+                (conn) => connection.query(`
+                        SELECT count(*) as 'c' FROM category a
+                        WHERE a.users_id = '${id}'
+                              ${whereDelete}
+                      `)
             )
             .then(
               (rows) => {
@@ -26,9 +39,10 @@ module.exports.list = ({res, token, results=20, page=1, sortField = null, sortOr
             )
             .then(
                 (conn) => connection.query(`
-                   SELECT a.id, a.description, a.income, a.expenditure
+                   SELECT a.id, a.description, a.income, a.expenditure, a.deleted
                    FROM category a
                    WHERE a.users_id = '${id}'
+                         ${whereDelete}
                    ${orderBy}
                    LIMIT ${results * (page-1)}, ${results}
                `)

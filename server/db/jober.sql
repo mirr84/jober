@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 16 2019 г., 17:58
+-- Время создания: Сен 18 2019 г., 18:09
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -33,7 +33,24 @@ CREATE TABLE IF NOT EXISTS `account` (
   `users_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `users_id` (`users_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=67 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `category`
+--
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text NOT NULL,
+  `income` int(11) NOT NULL DEFAULT '0',
+  `expenditure` int(11) NOT NULL DEFAULT '0',
+  `users_id` int(11) NOT NULL,
+  `deleted` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `users_id` (`users_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=24 ;
 
 -- --------------------------------------------------------
 
@@ -46,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `token` (
   `token` text NOT NULL,
   `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=39 ;
 
 -- --------------------------------------------------------
 
@@ -62,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `token_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `token_id` (`token_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

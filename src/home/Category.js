@@ -10,7 +10,8 @@ import {Button, Tooltip, Divider, Spin, Table, Switch, Icon, Input, Tag} from 'a
 import Menu from './Menu';
 
 let listData = {};
-let pagination = { pageSize: 20, position: 'both' };
+let pagination = { current: 1, pageSize: 20, position: 'both' };
+let pagination_, filters_, sorter_;
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
@@ -30,7 +31,7 @@ const fetch = (dispatch, params = {}) => {
       .then(
         (data) => {
           listData = data;
-          pagination = { ...pagination };
+          pagination = pagination_ = { ...pagination };
           pagination.total = data.total_count;
           dispatch.setter("categoryReducer", {});
         }
@@ -41,11 +42,17 @@ const fetch = (dispatch, params = {}) => {
 const columns = ({dispatch}) => [
   {
     render: (text, record) =>
-        record.description.trim() && (record.income || record.expenditure) &&
-        <Tag color="green"><Icon type="check" /></Tag>
-        ||
-        <Tag color="orange"><Icon type="question" /></Tag>,
-    width: 50
+        {
+          if (record.deleted) {
+            return <Tag color="red"><Icon type="close" /></Tag>
+          }
+          if (record.description.trim() && (record.income || record.expenditure)) {
+            return <Tag color="green"><Icon type="check" /></Tag>;
+          }
+          return <Tag color="orange"><Icon type="question" /></Tag>
+        }
+      ,
+    width: 60
   },
   {
     title: 'id',
@@ -106,10 +113,37 @@ const columns = ({dispatch}) => [
         defaultChecked
       />
   },
+  {
+    title: 'Скрытый',
+    dataIndex: 'deleted',
+    // sorter: true,
+    filters: [{ text: 'Показать', value: 1 }],
+    width: 100,
+    render: (text, record) => <Switch
+        checked={!!text}
+        onChange={
+          (checked) => {
+            record.deleted = checked;
+            doUpdateCategoty({dispatch, params: record})
+              .then(
+                () => handleTableChange(dispatch)
+              )
+            dispatch.setter("categoryReducer", {});
+          }
+        }
+        checkedChildren={<Icon type="check" />}
+        unCheckedChildren={<Icon type="close" />}
+        defaultChecked
+      />
+  },
 
 ];
 
-const handleTableChange = (dispatch, pagination, filters, sorter) => {
+const handleTableChange = (dispatch, pagination = pagination_, filters = filters_, sorter = sorter_) => {
+
+  pagination_ = pagination;
+  filters_ = filters;
+  sorter_ = sorter;
 
   const pager = { ...pagination };
   pager.current = pagination.current;
@@ -118,8 +152,8 @@ const handleTableChange = (dispatch, pagination, filters, sorter) => {
   fetch(dispatch, {
     results: pagination.pageSize,
     page: pagination.current,
-    sortField: sorter.field,
-    sortOrder: sorter.order,
+    sortField: sorter ? sorter.field : null,
+    sortOrder: sorter ? sorter.order : null,
     ...filters,
   });
 
