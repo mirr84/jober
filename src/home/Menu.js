@@ -1,9 +1,8 @@
 import React from 'react';
 
 import {connector} from "./../store/connectors";
-import {doCheck} from "../service/authService";
 
-import {Button, Divider, Spin, Tooltip} from 'antd';
+import {Button, Divider, Tooltip} from 'antd';
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {

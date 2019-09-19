@@ -3,31 +3,26 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {doListCategoty, doUpdateCategoty, doAddCategoty} from "../service/categoryService";
+import {doListDocument, doUpdateDocument, doAddDocument} from "../service/documentService";
 
 import {Button, Tooltip, Divider, Spin, Table, Switch, Icon, Input, Tag} from 'antd';
-
-import Menu from './Menu';
 
 let listData = [];
 let pagination = { current: 1, pageSize: 20, position: 'both' };
 let pagination_, filters_, sorter_;
 
 const methods = {
-    componentWillMount({state, dispatch, secure}) {
-        console.log('init Category');
+    componentWillMount({state, dispatch, secure, history}) {
+      console.log('init DocumentList');
 
-        secure && doCheck({dispatch})
-          .then(
-            () => fetch(dispatch)
-          )
+      // fetch(dispatch)
+
     }
 }
 
 const fetch = (dispatch, params = {}) => {
-    // console.log('params:', params);
 
-    doListCategoty({dispatch, params})
+    doListDocument({dispatch, params})
       .then(
         (data) => {
           listData = data;
@@ -72,7 +67,7 @@ const columns = ({dispatch}) => [
                     dispatch.setter("categoryReducer", {});
                   }
                  }
-                 onBlur={ () => doUpdateCategoty({dispatch, params: record}) }
+                 onBlur={ () => doUpdateDocument({dispatch, params: record}) }
                  placeholder="description" />
   },
   {
@@ -85,7 +80,7 @@ const columns = ({dispatch}) => [
         onChange={
           (checked) => {
             record.income = checked;
-            doUpdateCategoty({dispatch, params: record});
+            doUpdateDocument({dispatch, params: record});
             dispatch.setter("categoryReducer", {});
           }
         }
@@ -104,7 +99,7 @@ const columns = ({dispatch}) => [
         onChange={
           (checked) => {
             record.expenditure = checked;
-            doUpdateCategoty({dispatch, params: record});
+            doUpdateDocument({dispatch, params: record});
             dispatch.setter("categoryReducer", {});
           }
         }
@@ -124,7 +119,7 @@ const columns = ({dispatch}) => [
         onChange={
           (checked) => {
             record.deleted = checked;
-            doUpdateCategoty({dispatch, params: record})
+            doUpdateDocument({dispatch, params: record})
               .then(
                 () => handleTableChange(dispatch)
               )
@@ -159,42 +154,25 @@ const handleTableChange = (dispatch, pagination = pagination_, filters = filters
 
 };
 
-const Category = ({state, dispatch, history}) =>
+const DocumentList = ({state, dispatch, history}) =>
   <div>
-    <Spin tip="Loading..." spinning={
-          state.authReducer.isProgressCheck ||
-          state.categoryReducer.isProgressList ||
-          state.categoryReducer.isProgressUpdate ||
-          state.categoryReducer.isProgressAdd
-        } >
+    <Spin tip="Loading..."
+          spinning={
+              state.authReducer.isProgressCheck
 
-        <Menu />
+          } >
 
-          <Tooltip title={'category create'} placement="bottomLeft">
-              <Button size={'small'}
-                       type="primary"
-                       icon="plus"
-                       onClick={() => {
-                          doAddCategoty({dispatch})
-                            .then(
-                              () => fetch(dispatch)
-                            )
-                       } }/>
-          </Tooltip>
-
-          <Divider dashed />
-
-            <Table
-              size="small"
-              columns={columns({dispatch})}
-              rowKey={record => record.id}
-              dataSource={listData.list}
-              pagination={pagination}
-              loading={state.accountReducer.isProgressList}
-              onChange={(pagination, filters, sorter) => handleTableChange(dispatch, pagination, filters, sorter)}
-            />
+      <Table
+        size="small"
+        columns={columns({dispatch})}
+        rowKey={record => record.id}
+        dataSource={listData.list}
+        pagination={pagination}
+        loading={state.documentReducer.isProgressList}
+        onChange={(pagination, filters, sorter) => handleTableChange(dispatch, pagination, filters, sorter)}
+      />
 
     </Spin>
   </div>
 
-export default connector({methods, component: Category});
+export default connector({methods, component: DocumentList});

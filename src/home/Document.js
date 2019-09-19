@@ -7,6 +7,8 @@ import {Button, Tabs, Spin, Divider} from 'antd';
 
 import Menu from './Menu';
 
+import DocumentList from './DocumentList';
+
 const { TabPane } = Tabs;
 
 let defaultActiveKey;
@@ -40,7 +42,7 @@ const Document = ({state, dispatch, history}) =>
 
         <Divider dashed />
 
-
+        <DocumentList />
 
     </Spin>
   </div>
