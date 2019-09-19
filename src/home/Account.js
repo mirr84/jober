@@ -10,7 +10,7 @@ import Menu from './Menu';
 
 const { Meta } = Card;
 
-let listData = {};
+let listData = [];
 let pagination = { pageSize: 20, position: 'both' };
 
 const methods = {

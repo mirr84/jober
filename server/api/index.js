@@ -15,7 +15,7 @@ const init = (app) => {
         {url: '/category/add', method: 'get'},
 
         {url: '/document/list', method: 'get'},
-
+        {url: '/document/add', method: 'post'},
     ]
 
     require('./executer')({config, app});

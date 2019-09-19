@@ -28,7 +28,7 @@ export const documentService = ({dispatch}) => {
             dispatch,
             reducer,
             progresser,
-            method: 'get',
+            method: 'post',
             data,
             url: `api/document/add`
         }),
