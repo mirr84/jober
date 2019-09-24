@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 19 2019 г., 14:23
+-- Время создания: Сен 24 2019 г., 18:02
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `users_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `users_id` (`users_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=68 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=69 ;
 
 -- --------------------------------------------------------
 
@@ -61,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `category` (
 CREATE TABLE IF NOT EXISTS `document` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `users_id` int(11) NOT NULL,
+  `groupKeys` int(11) DEFAULT NULL,
   `account_id` int(11) NOT NULL,
   `category_id` int(11) NOT NULL,
   `direct` int(11) NOT NULL DEFAULT '0',
@@ -70,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `document` (
   `deleted` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `users_id` (`users_id`,`account_id`,`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=128 ;
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `token` (
   `token` text NOT NULL,
   `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=43 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=50 ;
 
 -- --------------------------------------------------------
 

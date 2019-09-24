@@ -16,8 +16,9 @@ module.exports.list = (
 
           let {description, income, expenditure, deleted = 0} = params;
 
-          let orderBy = sortField ? `ORDER BY a.${sortField} ${sortOrder === 'ascend' ? 'ASC' : ''} ${sortOrder === 'descend' ? 'DESC' : ''} ` : '';
+          let orderBy = sortField ? `ORDER BY a.${sortField} ${sortOrder === 'ascend' ? 'ASC' : ''} ${sortOrder === 'descend' ? 'DESC' : ''} ` : 'ORDER BY a.id DESC';
           let whereDelete = deleted ? '' : `AND a.deleted = '0'`;
+          let limits = results > 0 ? `LIMIT ${results * (page-1)}, ${results}` : '';
 
           require('../../db/db').connector()
             .then(
@@ -42,9 +43,10 @@ module.exports.list = (
                    SELECT a.id,
                           c.key as 'key',
                           a.description,
+                          a.groupKeys,
                           b.description as 'category',
                           a.direct,
-                          a.datetime,
+                          DATE_FORMAT(a.datetime, '%d.%m.%Y %T') as 'datetime',
                           a.summ,
                           a.deleted
                    FROM document a
@@ -53,7 +55,7 @@ module.exports.list = (
                    WHERE a.users_id = '${id}'
                          ${whereDelete}
                    ${orderBy}
-                   LIMIT ${results * (page-1)}, ${results}
+                   ${limits}
                `)
             )
             .then(

@@ -18,6 +18,7 @@ module.exports.list = (
 
           let orderBy = sortField ? `ORDER BY a.${sortField} ${sortOrder === 'ascend' ? 'ASC' : ''} ${sortOrder === 'descend' ? 'DESC' : ''} ` : '';
           let whereDelete = deleted ? '' : `AND a.deleted = '0'`;
+          let limits = results > 0 ? `LIMIT ${results * (page-1)}, ${results}` : '';
 
           require('../../db/db').connector()
             .then(
@@ -44,7 +45,7 @@ module.exports.list = (
                    WHERE a.users_id = '${id}'
                          ${whereDelete}
                    ${orderBy}
-                   LIMIT ${results * (page-1)}, ${results}
+                   ${limits}
                `)
             )
             .then(

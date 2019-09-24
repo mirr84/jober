@@ -1,3 +1,15 @@
-.ant-btn, .ant-btn-icon-only.ant-btn-sm, .ant-modal-content, .ant-input {
+.ant-btn, .ant-btn-icon-only.ant-btn-sm, .ant-modal-content, .ant-input, .ant-select-selection, .ant-input-number {
   border-radius: 0px;
+}
+
+.good-row {
+  background: honeydew;
+}
+
+.bad-row {
+  background: lavenderblush;
+}
+
+.netral-row {
+  background: cornsilk;
 }
