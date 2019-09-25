@@ -3,6 +3,8 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {Route, Switch} from 'react-router-dom';
 
+import { BackTop } from 'antd';
+
 import MyLayout from "./../layout/MyLayout";
 
 import Home from "./../home/Home";
@@ -22,20 +24,25 @@ const methods = {
 
 const App = ({state, dispatch}) =>
   <div>
+
+    <BackTop>
+      <div className="ant-back-top-inner">UP</div>
+    </BackTop>
+
     <Switch>
 
-    <Route path="/" exact render={props => <MyLayout secure={true} content={Home} /> } />
-    <Route path="/account" exact render={props => <MyLayout secure={true} content={Account} /> } />
-    <Route path="/category" exact render={props => <MyLayout secure={true} content={Category} /> } />
-    <Route path="/document" exact render={props => <MyLayout secure={true} content={Document} /> } />
+      <Route path="/" exact render={props => <MyLayout secure={true} content={Home} /> } />
+      <Route path="/account" exact render={props => <MyLayout secure={true} content={Account} /> } />
+      <Route path="/category" exact render={props => <MyLayout secure={true} content={Category} /> } />
+      <Route path="/document" exact render={props => <MyLayout secure={true} content={Document} /> } />
 
-    <Route path="/account/create" exact render={props => <MyLayout secure={true} content={AccountCreate} /> } />
+      <Route path="/account/create" exact render={props => <MyLayout secure={true} content={AccountCreate} /> } />
 
-    <Route path="/document/income" exact render={props => <MyLayout secure={true} content={Document} /> } />
-    <Route path="/document/expenditure" exact render={props => <MyLayout secure={true} content={Document} /> } />
-    <Route path="/document/transaction" exact render={props => <MyLayout secure={true} content={Document} /> } />
+      <Route path="/document/income" exact render={props => <MyLayout secure={true} content={Document} /> } />
+      <Route path="/document/expenditure" exact render={props => <MyLayout secure={true} content={Document} /> } />
+      <Route path="/document/transaction" exact render={props => <MyLayout secure={true} content={Document} /> } />
 
-    <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
+      <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 
     </Switch>
   </div>

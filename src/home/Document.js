@@ -266,7 +266,18 @@ const DocumentCreatePanel = (
     </Col>
 
     <Col span={4}>
-      <Button onClick = {change}>
+      <Button onClick = {change}
+              disabled = {
+                (() => {
+                  if (isKeyFrom && !state.documentReducer.keyFrom) return true;
+                  if (isKeyTo && !state.documentReducer.keyTo) return true;
+                  if (isCategotyFrom && !state.documentReducer.categotyFrom) return true;
+                  if (isCategotyTo && !state.documentReducer.categotyTo) return true;
+                  if (isCategotyAny && !state.documentReducer.categotyAny) return true;
+                  if (!state.documentReducer.summ || state.documentReducer.summ<=0) return true;
+                })()
+              }
+        >
         Создать
       </Button>
     </Col>
@@ -308,6 +319,11 @@ const Document = ({state, dispatch, history}) =>
                       .then(
                         () => handleTableChange(dispatch)
                       )
+                      .then(
+                        () => {
+                          dispatch.setter( 'documentReducer', { keyFrom: null, keyTo: null, categotyFrom: null, categotyTo: null, categotyAny: null, summ: null, dateDocument: null, description: null } )
+                        }
+                      )
                   }
               />
 
@@ -322,6 +338,11 @@ const Document = ({state, dispatch, history}) =>
                   doAddDocument({dispatch, params: { direct: -1, ...state.documentReducer }})
                     .then(
                       () => handleTableChange(dispatch)
+                    )
+                    .then(
+                      () => {
+                        dispatch.setter( 'documentReducer', { keyFrom: null, keyTo: null, categotyFrom: null, categotyTo: null, categotyAny: null, summ: null, dateDocument: null, description: null } )
+                      }
                     )
                 }
             />
@@ -339,6 +360,11 @@ const Document = ({state, dispatch, history}) =>
                   doAddDocument({dispatch, params: { direct: 0, ...state.documentReducer }})
                     .then(
                       () => handleTableChange(dispatch)
+                    )
+                    .then(
+                      () => {
+                        dispatch.setter( 'documentReducer', { keyFrom: null, keyTo: null, categotyFrom: null, categotyTo: null, categotyAny: null, summ: null, dateDocument: null, description: null } )
+                      }
                     )
                 }
             />
