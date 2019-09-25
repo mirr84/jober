@@ -17,6 +17,8 @@ const methods = {
     componentWillMount({state, dispatch, secure}) {
         console.log('init Statistics');
 
+        modeCalendar = 'month'
+
         secure && doCheck({dispatch})
           .then(
             () => fetch(dispatch)
@@ -51,7 +53,6 @@ const getListData = (value) => {
     )
 
   if (t.length > 0) {
-    console.log(t)
     listData = {
         d: [
             { type: 'success', content: t[0].plus + (t.length > 1 ? t[1].plus : 0) },
@@ -71,8 +72,8 @@ const dateCellRender = (value) => {
     <ul className="events"
         style={{ background: listData.c }}
       >
-      {listData.d.map(item => (
-        <li key={item.content}>
+      {listData.d.map((item, idx) => (
+        <li key={'id_'+idx}>
           <Badge status={item.type} text={item.content} />
         </li>
       ))}

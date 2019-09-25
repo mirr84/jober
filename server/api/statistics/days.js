@@ -7,7 +7,7 @@ module.exports.days = (
   }
 ) => {
 
-  let {type, y, m} = params;
+  let {type = 'month', y, m} = params;
 
   require('../../utils/users_id')
     .users_id({token})
@@ -18,6 +18,11 @@ module.exports.days = (
 
           let start = moment(`1.${m}.${y} 00:00:00`, 'DD.MM.YYYY HH:mm:ss').add(-1,'M').format('YYYY-MM-DD HH:mm:ss');
           let stop = moment(`1.${m}.${y} 00:00:00`, 'DD.MM.YYYY HH:mm:ss').add(2,'M').format('YYYY-MM-DD HH:mm:ss');
+
+          if (type === 'year') {
+            start = moment(`1.1.${y} 00:00:00`, 'DD.MM.YYYY HH:mm:ss').format('YYYY-MM-DD HH:mm:ss')
+            stop = moment(`1.1.${y} 00:00:00`, 'DD.MM.YYYY HH:mm:ss').add(1,'Y').format('YYYY-MM-DD HH:mm:ss')
+          }
 
           require('../../db/db').connector()
             .then(
@@ -34,7 +39,7 @@ module.exports.days = (
                     WHERE a.users_id = '${users_id}' AND
                           a.datetime BETWEEN '${start}' AND '${stop}' AND
                           a.groupKeys IS NULL
-                    GROUP BY DAY(a.datetime), a.direct
+                    GROUP BY ${type === 'month' ? 'DAY': 'MONTH'}(a.datetime), a.direct
                 `)
             )
             .then(
