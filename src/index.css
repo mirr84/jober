@@ -31,7 +31,12 @@
 .events {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 20px;
+  position: absolute;
+  width: calc(100% - 10px);
+  height: 100%;
+  top: 3px;
+  left: 5px;
 }
 .events .ant-badge-status {
   overflow: hidden;
@@ -46,19 +51,4 @@
 }
 .notes-month section {
   font-size: 28px;
-}
-
-.ant-fullcalendar-date {
-    height: auto;
-    min-height: 140px;
-}
-
-.ant-fullcalendar-fullscreen .ant-fullcalendar-content {
-    height: auto;
-}
-
-.ant-fullcalendar-fullscreen .ant-fullcalendar-value {
-    font-size: 70px;
-    top: 12px;
-    position: relative;
 }

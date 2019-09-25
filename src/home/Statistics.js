@@ -11,6 +11,7 @@ import {doListDaysStatistics} from "../service/statisticsService";
 import Menu from './Menu';
 
 let modeCalendar = 'month';
+let calendarData = [];
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
@@ -27,31 +28,50 @@ const fetch = (dispatch, type = 'month', m = moment()) =>
   doListDaysStatistics({dispatch, params: {type, y: m.year(), m: m.month() + 1} }) // year
     .then(
       (d) => {
-        console.log(d)
+        calendarData = d;
+        dispatch.setter( 'statisticsReducer', {} )
       }
     )
 
 const getListData = (value) => {
+
   let listData;
-  switch (value.date()) {
-    case 8:
-      listData = [
-        { type: 'default', content: 'переводы' },
-        { type: 'success', content: 'доход' },
-        { type: 'error', content: 'расход' },
-        { type: 'processing', content: 'баланс' },
-      ];
-      break;
-    default:
+  let t = calendarData
+    .filter(
+      a => a.date == value.format('DD.MM.YYYY')
+    )
+    .map(
+      a => {
+        let minus = 0;
+        let plus = 0;
+        if (a.direct === -1) minus = a.summ;
+        if (a.direct === 1) plus = a.summ;
+        return { date: a.date, minus, plus }
+      }
+    )
+
+  if (t.length > 0) {
+    console.log(t)
+    listData = {
+        d: [
+            { type: 'success', content: t[0].plus + (t.length > 1 ? t[1].plus : 0) },
+            { type: 'error', content: t[0].minus + (t.length > 1 ? t[1].minus : 0) },
+            { type: 'processing', content:  t[0].plus + (t.length > 1 ? t[1].plus : 0) - t[0].minus + (t.length > 1 ? t[1].minus : 0) },
+          ],
+        c: t[0].plus + (t.length > 1 ? t[1].plus : 0) - t[0].minus + (t.length > 1 ? t[1].minus : 0) > 0 ? '#7fffd44f' : '#e91e6314'
+    };
   }
-  return listData || [];
+
+  return listData || {d:[]};
 }
 
 const dateCellRender = (value) => {
   const listData = getListData(value);
   return (
-    <ul className="events">
-      {listData.map(item => (
+    <ul className="events"
+        style={{ background: listData.c }}
+      >
+      {listData.d.map(item => (
         <li key={item.content}>
           <Badge status={item.type} text={item.content} />
         </li>

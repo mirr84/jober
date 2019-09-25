@@ -46,6 +46,7 @@ module.exports.list = ({res, token, results=20, page=1, sortField = null, sortOr
             )
             .catch(
                 (status = 500) => {
+                  if (connection && connection.end) connection.end();
                   res.sendStatus(status);
                 }
             );

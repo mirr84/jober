@@ -70,6 +70,7 @@ module.exports.list = (
             )
             .catch(
                 (status = 500) => {
+                  if (connection && connection.end) connection.end();
                   res.sendStatus(status);
                 }
             );
