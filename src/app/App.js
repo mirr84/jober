@@ -14,6 +14,8 @@ import Document from "./../home/Document";
 
 import AccountCreate from "./../home/AccountCreate";
 
+import Statistics from "./../home/Statistics";
+
 import Page404 from "./../errors/Page404";
 
 const methods = {
@@ -26,7 +28,7 @@ const App = ({state, dispatch}) =>
   <div>
 
     <BackTop>
-      <div className="ant-back-top-inner">UP</div>
+      <div className="ant-back-top-inner">Наверх</div>
     </BackTop>
 
     <Switch>
@@ -41,6 +43,8 @@ const App = ({state, dispatch}) =>
       <Route path="/document/income" exact render={props => <MyLayout secure={true} content={Document} /> } />
       <Route path="/document/expenditure" exact render={props => <MyLayout secure={true} content={Document} /> } />
       <Route path="/document/transaction" exact render={props => <MyLayout secure={true} content={Document} /> } />
+
+      <Route path="/statistics" exact render={props => <MyLayout secure={true} content={Statistics} /> } />
 
       <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 

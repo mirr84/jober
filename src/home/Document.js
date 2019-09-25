@@ -63,6 +63,7 @@ const fetch = (dispatch, params = {}) => {
           listDocumentData = data;
           pagination = pagination_ = { ...pagination };
           pagination.total = data.total_count;
+          pagination.current = params.page || 1;  
           dispatch.setter("documentReducer", {});
         }
       )
@@ -91,7 +92,13 @@ const columns = ({dispatch}) => [
   },
   {
     title: 'direct',
-    dataIndex: 'direct'
+    dataIndex: 'direct',
+    render: (text, record) => {
+      if (text === 1 && !record.groupKeys) return 'Доход';
+      if (text === -1 && !record.groupKeys) return 'Расход';
+      if (text === -1 && record.groupKeys) return 'Перевод -';
+      if (text === 1 && record.groupKeys) return 'Перевод +';
+    }
   },
   {
     title: 'datetime',

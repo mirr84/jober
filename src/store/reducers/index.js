@@ -5,6 +5,7 @@ import {authReducer} from "./authReducer";
 import {accountReducer} from "./accountReducer";
 import {categoryReducer} from "./categoryReducer";
 import {documentReducer} from "./documentReducer";
+import {statisticsReducer} from "./statisticsReducer";
 
 export default combineReducers(
     {
@@ -13,7 +14,8 @@ export default combineReducers(
         authReducer,
         accountReducer,
         categoryReducer,
-        documentReducer
+        documentReducer,
+        statisticsReducer
 
     }
 );

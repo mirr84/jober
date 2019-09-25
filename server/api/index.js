@@ -16,6 +16,8 @@ const init = (app) => {
 
         {url: '/document/list', method: 'get'},
         {url: '/document/add', method: 'post'},
+
+        {url: '/statistics/days', method: 'get'},
     ]
 
     require('./executer')({config, app});

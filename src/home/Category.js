@@ -33,6 +33,7 @@ const fetch = (dispatch, params = {}) => {
           listData = data;
           pagination = pagination_ = { ...pagination };
           pagination.total = data.total_count;
+          pagination.current = params.page || 1;   
           dispatch.setter("categoryReducer", {});
         }
       )

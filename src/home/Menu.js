@@ -48,6 +48,15 @@ const Menu = ({state, dispatch, history}) =>
               onClick={() => history.push(`/document`)}/>
     </Tooltip>
 
+             {' '}
+
+    <Tooltip title={'statistics'} placement="bottomLeft">
+      <Button size={'small'}
+              type="primary"
+              icon="bar-chart"
+              onClick={() => history.push(`/statistics`)}/>
+    </Tooltip>
+
     <Divider dashed />
 
   </div>
