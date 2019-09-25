@@ -37,6 +37,7 @@ module.exports.days = (
                            a.direct
                     FROM document a
                     WHERE a.users_id = '${users_id}' AND
+                          a.deleted = 0 AND
                           a.datetime BETWEEN '${start}' AND '${stop}' AND
                           a.groupKeys IS NULL
                     GROUP BY ${type === 'month' ? 'DAY': 'MONTH'}(a.datetime), a.direct

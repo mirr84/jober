@@ -17,7 +17,8 @@ const methods = {
     componentWillMount({state, dispatch, secure}) {
         console.log('init Statistics');
 
-        modeCalendar = 'month'
+        modeCalendar = 'month';
+        calendarData = [];
 
         secure && doCheck({dispatch})
           .then(
