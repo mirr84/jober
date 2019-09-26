@@ -4,11 +4,12 @@ import moment from 'moment';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {doListDocument, doUpdateDocument, doAddDocument} from "../service/documentService";
+import {doListDocument, doUpdateDocument, doAddDocument, doDeleteDocument} from "../service/documentService";
 import {doListAccount} from "../service/accountService";
 import {doListCategoty} from "../service/categoryService";
 
-import {Button, Tabs, Spin, Divider, Tag, Icon, Switch, Table, Input, Select, DatePicker, InputNumber, Row, Col} from 'antd';
+import {Button, Tabs, Spin, Divider, Tag, Icon, Switch, Table, Input,
+        Select, DatePicker, InputNumber, Row, Col, Popconfirm} from 'antd';
 
 import Menu from './Menu';
 
@@ -63,7 +64,7 @@ const fetch = (dispatch, params = {}) => {
           listDocumentData = data;
           pagination = pagination_ = { ...pagination };
           pagination.total = data.total_count;
-          pagination.current = params.page || 1;  
+          pagination.current = params.page || 1;
           dispatch.setter("documentReducer", {});
         }
       )
@@ -111,8 +112,21 @@ const columns = ({dispatch}) => [
     sorter: true,
   },
   {
-    title: 'deleted',
-    dataIndex: 'deleted'
+    dataIndex: 'deleted',
+    width: 50,
+    render: (text, record) => {
+        if (record.deleted === 0)
+          return <Popconfirm title={'delete?'}
+                             onConfirm={
+                               () => doDeleteDocument({dispatch, params: {id: record.id} })
+                                      .then(
+                                        () => handleTableChange(dispatch)
+                                      )
+                             }
+                             okText="Yes" cancelText="No">
+            <Button size="small" type="danger"  icon="close" />
+          </Popconfirm>
+    }
   },
 ];
 
@@ -370,7 +384,10 @@ const Document = ({state, dispatch, history}) =>
                     )
                     .then(
                       () => {
-                        dispatch.setter( 'documentReducer', { keyFrom: null, keyTo: null, categotyFrom: null, categotyTo: null, categotyAny: null, summ: null, dateDocument: null, description: null } )
+                        dispatch.setter( 'documentReducer',
+                          { keyFrom: null, keyTo: null, categotyFrom: null, categotyTo: null, categotyAny: null,
+                            summ: null, dateDocument: null, description: null }
+                        )
                       }
                     )
                 }

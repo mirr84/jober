@@ -33,6 +33,15 @@ export const documentService = ({dispatch}) => {
             url: `api/document/add`
         }),
 
+        delete: (progresser, data) => request({
+            dispatch,
+            reducer,
+            progresser,
+            method: 'get',
+            data,
+            url: `api/document/delete`
+        }),
+
     }
 
 }
@@ -60,6 +69,17 @@ export const doUpdateDocument = ({dispatch, params}) =>
 export const doAddDocument = ({dispatch, params}) =>
     documentService({dispatch})
         .add('isProgressAdd', params)
+        .then(
+            (r) => r
+        )
+        .catch(
+            (e) => e
+        )
+
+
+export const doDeleteDocument = ({dispatch, params}) =>
+    documentService({dispatch})
+        .delete('isProgressDelete', params)
         .then(
             (r) => r
         )

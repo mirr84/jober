@@ -7,6 +7,7 @@ const initState = {
   isProgressAdd: false,
   isProgressUpdate: false,
   isProgressAdd: false,
+  isProgressDelete: false,
 
 }
 
