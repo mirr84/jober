@@ -4,7 +4,7 @@ import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 import moment from 'moment';
 
-import {Button,  Calendar, Badge, Spin} from 'antd';
+import {Button,  Calendar, Badge, Spin, Divider, Tooltip} from 'antd';
 
 import {doListDaysStatistics} from "../service/statisticsService";
 
@@ -15,7 +15,7 @@ let calendarData = [];
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
-        console.log('init Statistics');
+        console.log('init StatisticsCalendar');
 
         modeCalendar = 'month';
         calendarData = [];
@@ -129,11 +129,29 @@ const monthCellRender = (value) => {
   );
 }
 
-const Statistics = ({state, dispatch, history}) =>
+const StatisticsCalendar = ({state, dispatch, history}) =>
   <div>
     <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
 
       <Menu />
+
+      <Tooltip title={'calendar'} placement="bottomLeft">
+            <Button size={'small'}
+                     type="primary"
+                     icon="calendar"
+                     onClick={() => history.push(`/statistics/calendar`)}/>
+      </Tooltip>
+
+        {' '}
+
+      <Tooltip title={'chart'} placement="bottomLeft">
+            <Button size={'small'}
+                    type="primary"
+                    icon="area-chart"
+                    onClick={() => history.push(`/statistics/chart`)}/>
+      </Tooltip>
+
+      <Divider dashed />
 
       <Spin tip="Loading..." spinning={state.statisticsReducer.isProgressListDays} >
         <Calendar dateCellRender={dateCellRender}
@@ -148,4 +166,4 @@ const Statistics = ({state, dispatch, history}) =>
     </Spin>
   </div>
 
-export default connector({methods, component: Statistics});
+export default connector({methods, component: StatisticsCalendar});

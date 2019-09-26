@@ -14,7 +14,8 @@ import Document from "./../home/Document";
 
 import AccountCreate from "./../home/AccountCreate";
 
-import Statistics from "./../home/Statistics";
+import StatisticsCalendar from "./../home/StatisticsCalendar";
+import StatisticsСhart from "./../home/StatisticsСhart";
 
 import Page404 from "./../errors/Page404";
 
@@ -44,7 +45,9 @@ const App = ({state, dispatch}) =>
       <Route path="/document/expenditure" exact render={props => <MyLayout secure={true} content={Document} /> } />
       <Route path="/document/transaction" exact render={props => <MyLayout secure={true} content={Document} /> } />
 
-      <Route path="/statistics" exact render={props => <MyLayout secure={true} content={Statistics} /> } />
+      <Route path="/statistics" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />
+      <Route path="/statistics/calendar" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />
+      <Route path="/statistics/chart" exact render={props => <MyLayout secure={true} content={StatisticsСhart} /> } />
 
       <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 
