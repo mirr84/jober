@@ -3,7 +3,7 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck, doLogout} from "../service/authService";
 
-import {Layout, Button,  Popconfirm, PageHeader, Menu, Dropdown, Icon, Tag, Typography, Row} from 'antd';
+import {Layout, Button,  Popconfirm, PageHeader, Menu, Dropdown, Icon, Tag, Typography, Row, Tooltip} from 'antd';
 
 import MyProgressModal from './MyProgressModal';
 import MyLoginModal from './MyLoginModal';
@@ -61,15 +61,19 @@ const MyLayout = (
                            title="Контроль расходов"
                            subTitle={ JSON.stringify(history.location.pathname) }
                            extra={[
-                             <Button size="small" type="dashed"
-                                     icon="user"
-                                     onClick={ ()=> history.push(`/profile`) }
-                             > { state.authReducer.login } </Button>,
+                             <Tooltip title={'profile'} placement="bottomLeft">
+                               <Button size="small" type="dashed"
+                                       icon="user"
+                                       onClick={ ()=> history.push(`/profile`) }
+                               > { state.authReducer.login } </Button>
+                             </Tooltip>,
                              <Popconfirm key={'PopconfirmExit'} placement="topLeft"
                                          title={'Выйти?'} onConfirm={ () => doLogout({dispatch}) } okText="Yes" cancelText="No">
-                               <Button size={'small'}
-                                       type="primary"
-                                        icon="logout"/>
+                                <Tooltip title={'exit'} placement="bottomLeft">
+                                  <Button size={'small'}
+                                          type="primary"
+                                          icon="logout"/>
+                                </Tooltip>
                              </Popconfirm>
                            ]}
                          >
