@@ -83,19 +83,50 @@ const dateCellRender = (value) => {
 }
 
 const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
+
+  let listData;
+  let t = calendarData
+    .filter(
+      a => moment(a.date, 'DD.MM.YYYY').format('MM.YYYY') == value.format('MM.YYYY')
+    )
+    .map(
+      a => {
+        let minus = 0;
+        let plus = 0;
+        if (a.direct === -1) minus = a.summ;
+        if (a.direct === 1) plus = a.summ;
+        return { date: a.date, minus, plus }
+      }
+    )
+
+    if (t.length > 0) {
+      listData = {
+          d: [
+              { type: 'success', content: t[0].plus + (t.length > 1 ? t[1].plus : 0) },
+              { type: 'error', content: t[0].minus + (t.length > 1 ? t[1].minus : 0) },
+              { type: 'processing', content:  t[0].plus + (t.length > 1 ? t[1].plus : 0) - t[0].minus + (t.length > 1 ? t[1].minus : 0) },
+            ],
+          c: t[0].plus + (t.length > 1 ? t[1].plus : 0) - t[0].minus + (t.length > 1 ? t[1].minus : 0) > 0 ? '#7fffd44f' : '#e91e6314'
+      };
+    }
+
+  return listData || {d:[]};
+
 }
 
 const monthCellRender = (value) => {
-  const num = getMonthData(value);
-  return num ? (
-    <div className="notes-month">
-      <section>{num}</section>
-      <span>Backlog number</span>
-    </div>
-  ) : null;
+  const listData = getMonthData(value);
+  return (
+    <ul className="events"
+        style={{ background: listData.c }}
+      >
+      {listData.d.map((item, idx) => (
+        <li key={'id_'+idx}>
+          <Badge status={item.type} text={item.content} />
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 const Statistics = ({state, dispatch, history}) =>
