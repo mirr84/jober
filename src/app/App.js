@@ -17,6 +17,8 @@ import AccountCreate from "./../home/AccountCreate";
 import StatisticsCalendar from "./../home/StatisticsCalendar";
 import StatisticsСhart from "./../home/StatisticsСhart";
 
+import Profile from "./../home/Profile";
+
 import Page404 from "./../errors/Page404";
 
 const methods = {
@@ -48,6 +50,8 @@ const App = ({state, dispatch}) =>
       <Route path="/statistics" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />
       <Route path="/statistics/calendar" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />
       <Route path="/statistics/chart" exact render={props => <MyLayout secure={true} content={StatisticsСhart} /> } />
+
+      <Route path="/profile" exact render={props => <MyLayout secure={true} content={Profile} /> } />
 
       <Route render={props => <MyLayout isHeader={false} isFooter={false} secure={false} content={Page404} /> } />
 

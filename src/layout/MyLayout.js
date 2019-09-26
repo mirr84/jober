@@ -3,8 +3,7 @@ import React from 'react';
 import {connector} from "./../store/connectors";
 import {doCheck, doLogout} from "../service/authService";
 
-import {Layout, Button,  Popconfirm} from 'antd';
-import {PageHeader, Menu, Dropdown, Icon, Tag, Typography, Row} from 'antd';
+import {Layout, Button,  Popconfirm, PageHeader, Menu, Dropdown, Icon, Tag, Typography, Row} from 'antd';
 
 import MyProgressModal from './MyProgressModal';
 import MyLoginModal from './MyLoginModal';
@@ -39,7 +38,12 @@ const methods = {
     }
 }
 
-const MyLayout = ({state, dispatch, content: ContentComponent, secure = false, isHeader = true, isFooter = true}) =>
+const MyLayout = (
+  {
+      state, dispatch, history,
+      content: ContentComponent, secure = false, isHeader = true, isFooter = true
+  }
+) =>
   <div>
 
     <MyProgressModal visible={isCheckSecure} />
@@ -54,10 +58,14 @@ const MyLayout = ({state, dispatch, content: ContentComponent, secure = false, i
           <Header style= {{ background: '#fff', margin: 20, marginBottom: 0, height: 57 }}>
               <div>
                          <PageHeader
-                           title="Title"
-                           subTitle="This is a subtitle"
+                           title="Контроль расходов"
+                           subTitle={ JSON.stringify(history.location.pathname) }
                            extra={[
-                             <Popconfirm key={'PopconfirmExit'} placement="topLeft" 
+                             <Button size="small" type="dashed"
+                                     icon="user"
+                                     onClick={ ()=> history.push(`/profile`) }
+                             > { state.authReducer.login } </Button>,
+                             <Popconfirm key={'PopconfirmExit'} placement="topLeft"
                                          title={'Выйти?'} onConfirm={ () => doLogout({dispatch}) } okText="Yes" cancelText="No">
                                <Button size={'small'}
                                        type="primary"
@@ -66,8 +74,6 @@ const MyLayout = ({state, dispatch, content: ContentComponent, secure = false, i
                            ]}
                          >
                          </PageHeader>
-
-
               </div>
           </Header>
         }
