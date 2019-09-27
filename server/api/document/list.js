@@ -45,6 +45,7 @@ module.exports.list = (
                           a.description,
                           a.groupKeys,
                           b.description as 'category',
+                          b.deleted as 'categoryIsDeleted',
                           a.direct,
                           DATE_FORMAT(a.datetime, '%d.%m.%Y %T') as 'datetime',
                           a.summ,
