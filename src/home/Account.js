@@ -55,8 +55,21 @@ const columns = [
   {
     title: 'description',
     dataIndex: 'description',
-    sorter: true,
-    filters: [{ text: 'Male', value: 'male' }, { text: 'Female', value: 'female' }],
+  },
+  {
+    title: 'balans',
+    dataIndex: 'balans',
+    width: 150,
+  },
+  {
+    title: 'operations',
+    dataIndex: 'operations',
+    width: 150,
+  },
+  {
+    title: 'actions',
+    dataIndex: 'actions',
+    width: 150,
   }
 ];
 

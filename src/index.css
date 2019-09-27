@@ -2,7 +2,7 @@
 .ant-input, .ant-select-selection, .ant-input-number,
 .ant-table, .ant-pagination-item, .ant-calendar,
 .ant-calendar-ok-btn, .ant-select-dropdown, .ant-radio-button-wrapper,
-.ant-tag, .ant-popover-inner, .ant-message-notice-content {
+.ant-tag, .ant-popover-inner, .ant-message-notice-content, .ant-tooltip-inner {
   border-radius: 0px!important;
 }
 

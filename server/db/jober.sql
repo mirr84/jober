@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Сен 25 2019 г., 17:54
+-- Время создания: Сен 27 2019 г., 15:48
 -- Версия сервера: 5.5.25
 -- Версия PHP: 5.3.13
 
@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS `account` (
   `key` text NOT NULL,
   `description` text NOT NULL,
   `users_id` int(11) NOT NULL,
+  `deleted` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `users_id` (`users_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
