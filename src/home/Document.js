@@ -90,7 +90,6 @@ const columns = ({dispatch}) => [
   {
     title: 'category',
     dataIndex: 'category',
-    // text-decoration: line-through;
     render: (text, record) => <span style={{ textDecoration: record.categoryIsDeleted && 'line-through' }} >{text}</span>        
   },
   {
