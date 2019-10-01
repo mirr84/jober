@@ -17,6 +17,7 @@ const init = (app) => {
         {url: '/document/list', method: 'get'},
         {url: '/document/add', method: 'post'},
         {url: '/document/delete', method: 'get'},
+        {url: '/document/get', method: 'get'},
 
         {url: '/statistics/days', method: 'get'},
     ]

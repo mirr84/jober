@@ -4,12 +4,10 @@ import moment from 'moment';
 import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 
-import {doListDocument, doUpdateDocument, doAddDocument, doDeleteDocument} from "../service/documentService";
-import {doListAccount} from "../service/accountService";
-import {doListCategoty} from "../service/categoryService";
+import {doGetDocument} from "../service/documentService";
 
 import {Button, Tabs, Spin, Divider, Tag, Icon, Switch, Table, Input,
-        Select, DatePicker, InputNumber, Row, Col, Popconfirm} from 'antd';
+        Select, DatePicker, InputNumber, Row, Col, Popconfirm, Alert} from 'antd';
 
 import Menu from './Menu';
 
@@ -17,32 +15,44 @@ const { TabPane } = Tabs;
 const { Option } = Select;
 const { TextArea } = Input;
 
-let defaultActiveKey;
-let pagination = { current: 1, pageSize: 100, position: 'both' };
-let pagination_, filters_, sorter_;
-
-let listDocumentData = [];
-let listAccountData = [];
-let listCategotyData = [];
+let documentData = {}
 
 const methods = {
-    componentWillMount({state, dispatch, secure, history}) {
+    componentWillMount({state, dispatch, secure, history, match}) {
         secure && doCheck({dispatch})
-
+          .then(
+            () => doGetDocument({dispatch, ...match})
+                    .then(
+                      (r) => {
+                        documentData = r.data;
+                        dispatch.setter( 'documentReducer', {} )
+                      }
+                    )
+          )
     }
 }
 
-const DocumentEdit = ({state, dispatch, history}) =>
+const DocumentEdit = ({state, dispatch, history, match}) =>
   <div>
-    <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
+    <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck || state.documentReducer.isProgressGet} >
 
-        DocumentEdit
+      <Button size="small" type="primary" onClick = { () => history.push(`/document`) }>
+        <Icon type="left" />
+      </Button>
 
-        <br />
+      {' '}
 
-        <Button size="small" type="primary" onClick = { () => history.goBack() }>
-          <Icon type="left" /> Backward
-        </Button>
+      Документа №{match.params.id}
+
+      <Divider dashed />
+
+        {
+          !documentData && <Alert message="Нет прав или документ не существует" type="error" />
+        }
+
+        {
+          JSON.stringify(documentData)
+        }
 
     </Spin>
   </div>
