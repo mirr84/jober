@@ -11,6 +11,7 @@ import Home from "./../home/Home";
 import Account from "./../home/Account";
 import Category from "./../home/Category";
 import Document from "./../home/Document";
+import DocumentEdit from "./../home/DocumentEdit";
 
 import AccountCreate from "./../home/AccountCreate";
 
@@ -46,6 +47,8 @@ const App = ({state, dispatch}) =>
       <Route path="/document/income" exact render={props => <MyLayout secure={true} content={Document} /> } />
       <Route path="/document/expenditure" exact render={props => <MyLayout secure={true} content={Document} /> } />
       <Route path="/document/transaction" exact render={props => <MyLayout secure={true} content={Document} /> } />
+
+      <Route path="/document/:id" exact render={props => <MyLayout secure={true} content={DocumentEdit} /> } />
 
       <Route path="/statistics" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />
       <Route path="/statistics/calendar" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />

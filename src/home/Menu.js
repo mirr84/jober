@@ -17,26 +17,26 @@ const Menu = ({state, dispatch, history}) =>
     <Tooltip title={'home'} placement="bottomLeft">
       <Button size={'small'}
               type="primary"
-               icon="home"
-               onClick={() => history.push(`/`)}/>
+              icon="home"
+              onClick={() => history.push(`/`)}/>
     </Tooltip>
 
              {' '}
 
     <Tooltip title={'account'} placement="bottomLeft">
       <Button size={'small'}
-               type="primary"
-               icon="menu-unfold"
-               onClick={() => history.push(`/account`)}/>
+              type="primary"
+              icon="menu-unfold"
+              onClick={() => history.push(`/account`)}/>
     </Tooltip>
 
              {' '}
 
     <Tooltip title={'category'} placement="bottomLeft">
       <Button size={'small'}
-               type="primary"
-               icon="ordered-list"
-               onClick={() => history.push(`/category`)}/>
+              type="primary"
+              icon="ordered-list"
+              onClick={() => history.push(`/category`)}/>
     </Tooltip>
 
              {' '}

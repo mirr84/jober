@@ -8,6 +8,8 @@ import {Layout, Button,  Popconfirm, PageHeader, Menu, Dropdown, Icon, Tag, Typo
 import MyProgressModal from './MyProgressModal';
 import MyLoginModal from './MyLoginModal';
 
+import menuParams from './menuParams.json';
+
 const {Header, Content, Footer} = Layout;
 const { Paragraph } = Typography;
 
@@ -59,7 +61,7 @@ const MyLayout = (
               <div>
                          <PageHeader
                            title="Контроль расходов"
-                           subTitle={ JSON.stringify(history.location.pathname) }
+                           subTitle={ menuParams.find( a => history.location.pathname.match(new RegExp(a.pathname))  ).title }
                            extra={[
                              <Tooltip title={'profile'} placement="bottomLeft">
                                <Button size="small" type="dashed"

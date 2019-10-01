@@ -71,7 +71,7 @@ const fetch = (dispatch, params = {}) => {
 
 };
 
-const columns = ({dispatch}) => [
+const columns = ({dispatch, history}) => [
   {
     title: 'id',
     dataIndex: 'id',
@@ -90,7 +90,7 @@ const columns = ({dispatch}) => [
   {
     title: 'category',
     dataIndex: 'category',
-    render: (text, record) => <span style={{ textDecoration: record.categoryIsDeleted && 'line-through' }} >{text}</span>        
+    render: (text, record) => <span style={{ textDecoration: record.categoryIsDeleted && 'line-through' }} >{text}</span>
   },
   {
     title: 'direct',
@@ -114,19 +114,30 @@ const columns = ({dispatch}) => [
   },
   {
     dataIndex: 'deleted',
-    width: 50,
+    width: 80,
     render: (text, record) => {
         if (record.deleted === 0)
-          return <Popconfirm title={'delete?'}
-                             onConfirm={
-                               () => doDeleteDocument({dispatch, params: {id: record.id} })
-                                      .then(
-                                        () => handleTableChange(dispatch)
-                                      )
-                             }
-                             okText="Yes" cancelText="No">
-            <Button size="small" type="danger"  icon="close" />
-          </Popconfirm>
+          return <Row gutter={8}>
+            <Col span={12}>
+              <Button size="small"
+                      type="primary"
+                      icon="search"
+                      onClick={ () => history.push(`/document/${record.id}`) }
+                  />
+            </Col>
+            <Col span={12}>
+              <Popconfirm title={'delete?'}
+                                 onConfirm={
+                                   () => doDeleteDocument({dispatch, params: {id: record.id} })
+                                          .then(
+                                            () => handleTableChange(dispatch)
+                                          )
+                                 }
+                                 okText="Yes" cancelText="No">
+                <Button size="small" type="danger"  icon="close" />
+              </Popconfirm>
+            </Col>
+          </Row>
     }
   },
 ];
@@ -397,11 +408,9 @@ const Document = ({state, dispatch, history}) =>
           </TabPane>
         </Tabs>
 
-        <Divider dashed />
-
           <Table
             size="small"
-            columns={columns({dispatch})}
+            columns={columns({dispatch, history})}
             rowKey={record => record.id}
             rowClassName={
               (record, index) => {

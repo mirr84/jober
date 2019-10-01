@@ -1,0 +1,23 @@
+[
+
+  { "pathname": "^/$", "title": "Домашняя страница" },
+
+  { "pathname": "^/account$", "title": "Счета" },
+
+  { "pathname": "^/account/create$", "title": "Создание счета" },
+
+  { "pathname": "^/category$", "title": "Категории расходов и доходов" },
+
+  { "pathname": "^/document$", "title": "Документы -> создание дохода" },
+  { "pathname": "^/document/\\d*$", "title": "Документы -> редактирование документа" },
+  { "pathname": "^/document/income$", "title": "Документы -> создание дохода" },
+  { "pathname": "^/document/expenditure$", "title": "Документы -> создание расхода" },
+  { "pathname": "^/document/transaction$", "title": "Документы -> создание перевода" },
+
+  { "pathname": "^/statistics$", "title": "Статистика -> календарь" },
+  { "pathname": "^/statistics/calendar$", "title": "Статистика -> календарь" },
+  { "pathname": "^/statistics/chart$", "title": "Статистика -> график" },
+
+  { "pathname": "^/profile$", "title": "Профиль" }
+
+]

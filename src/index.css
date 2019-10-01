@@ -53,3 +53,8 @@
 .notes-month section {
   font-size: 28px;
 }
+
+.ant-divider-horizontal {
+    margin: 14px 0;
+    /* margin-bottom: 0px;  */
+}
