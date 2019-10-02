@@ -4,14 +4,12 @@ import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 import moment from 'moment';
 
-import {Button,  Calendar, Badge, Spin, Divider, Tooltip} from 'antd';
+import {Button,  Calendar, Badge, Spin, Divider, Tooltip, Row, Col} from 'antd';
+import { Pie } from 'ant-design-pro/lib/Charts';
 
 import {doListDaysStatistics} from "../service/statisticsService";
 
 import Menu from './Menu';
-
-let modeCalendar = 'month';
-let calendarData = [];
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
@@ -20,6 +18,44 @@ const methods = {
         secure && doCheck({dispatch})
     }
 }
+
+const minusPieData = [
+  {
+    x: 'расход 1',
+    y: 111,
+  },
+  {
+    x: 'расход 2',
+    y: 222,
+  },
+  {
+    x: 'расход 3',
+    y: 333,
+  },
+  {
+    x: 'расход 4',
+    y: 444,
+  }
+];
+
+const plusPieData = [
+  {
+    x: 'доход 1',
+    y: 111,
+  },
+  {
+    x: 'доход 2',
+    y: 222,
+  },
+  {
+    x: 'доход 3',
+    y: 333,
+  },
+  {
+    x: 'доход 4',
+    y: 444,
+  }
+];
 
 const StatisticsСhart = ({state, dispatch, history}) =>
   <div>
@@ -45,7 +81,51 @@ const StatisticsСhart = ({state, dispatch, history}) =>
 
       <Divider dashed />
 
-      StatisticsСhart
+        filter
+
+      <Divider dashed />
+
+      <Row>
+        <Col span={10}>
+          <Pie
+            hasLegend
+            title="title"
+            subTitle="subTitle"
+            total={() => (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: plusPieData.reduce((pre, now) => now.y + pre, 0),
+                }}
+              />
+            )}
+            data={plusPieData}
+            valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
+            height={294}
+          />
+        </Col>
+        <Col span={2} />
+        <Col span={10}>
+          <Pie
+            hasLegend
+            title="title"
+            subTitle="subTitle"
+            total={() => (
+              <span
+                dangerouslySetInnerHTML={{
+                  __html: minusPieData.reduce((pre, now) => now.y + pre, 0),
+                }}
+              />
+            )}
+            data={minusPieData}
+            valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
+            height={294}
+          />
+        </Col>
+        <Col span={2} />
+      </Row>
+      <Divider dashed />
+
+      график по датам
 
     </Spin>
   </div>

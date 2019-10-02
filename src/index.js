@@ -18,6 +18,7 @@ import {HashRouter} from 'react-router-dom';
 import App from './app/App';
 
 import 'antd/dist/antd.css';
+import 'ant-design-pro/dist/ant-design-pro.min.css';
 import './index.css';
 
 const store = createStore(reducer);
