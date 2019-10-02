@@ -20,6 +20,8 @@ const init = (app) => {
         {url: '/document/get', method: 'get'},
 
         {url: '/statistics/days', method: 'get'},
+        {url: '/statistics/chart', method: 'get'},
+                
     ]
 
     require('./executer')({config, app});

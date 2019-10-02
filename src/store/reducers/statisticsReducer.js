@@ -4,6 +4,7 @@ import {getStorage} from "../storage/getStorage";
 const initState = {
 
   isProgressListDays: false,
+  isProgressListChart: false,
 
 }
 

@@ -15,6 +15,15 @@ export const statisticsService = ({dispatch}) => {
             url: `api/statistics/days`
         }),
 
+        listChart: (progresser, data) => request({
+            dispatch,
+            reducer,
+            progresser,
+            method: 'get',
+            data,
+            url: `api/statistics/chart`
+        }),
+
     }
 
 }
@@ -22,6 +31,16 @@ export const statisticsService = ({dispatch}) => {
 export const doListDaysStatistics = ({dispatch, params}) =>
     statisticsService({dispatch})
         .listDays('isProgressListDays', params)
+        .then(
+            (r) => r.data
+        )
+        .catch(
+            (e) => e
+        )
+
+export const doListChartStatistics = ({dispatch, params}) =>
+    statisticsService({dispatch})
+        .listChart('isProgressListChart', params)
         .then(
             (r) => r.data
         )

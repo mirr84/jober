@@ -4,58 +4,52 @@ import {connector} from "./../store/connectors";
 import {doCheck} from "../service/authService";
 import moment from 'moment';
 
-import {Button,  Calendar, Badge, Spin, Divider, Tooltip, Row, Col} from 'antd';
+import {Button,  Calendar, Badge, Spin, Divider, Tooltip, Row, Col, DatePicker} from 'antd';
 import { Pie } from 'ant-design-pro/lib/Charts';
 
-import {doListDaysStatistics} from "../service/statisticsService";
+import {doListChartStatistics} from "../service/statisticsService";
 
 import Menu from './Menu';
+
+const { RangePicker } = DatePicker;
 
 const methods = {
     componentWillMount({state, dispatch, secure}) {
         console.log('init StatisticsСhart');
 
         secure && doCheck({dispatch})
+        .then(
+          () => {
+            let dateStrings = [moment().startOf('month').format('DD.MM.YYYY'), moment().endOf('month').format('DD.MM.YYYY')];
+            onChange({dispatch, dateStrings})
+          }
+        )
     }
 }
 
-const minusPieData = [
-  {
-    x: 'расход 1',
-    y: 111,
-  },
-  {
-    x: 'расход 2',
-    y: 222,
-  },
-  {
-    x: 'расход 3',
-    y: 333,
-  },
-  {
-    x: 'расход 4',
-    y: 444,
-  }
-];
+let minusPieData = [];
+let plusPieData = [];
 
-const plusPieData = [
-  {
-    x: 'доход 1',
-    y: 111,
-  },
-  {
-    x: 'доход 2',
-    y: 222,
-  },
-  {
-    x: 'доход 3',
-    y: 333,
-  },
-  {
-    x: 'доход 4',
-    y: 444,
+const onChange = ({dispatch, dates, dateStrings}) => {
+  let d1 = moment(dateStrings[0], 'DD.MM.YYYY');
+  let d2 = moment(dateStrings[1], 'DD.MM.YYYY');
+  if (d1.isValid() && d2.isValid()) {
+    doListChartStatistics({dispatch, params: {dateStrings}})
+    .then(
+      (r) => {
+        plusPieData = r.plusPieData || [];
+        minusPieData = r.minusPieData || [];
+        dispatch.setter( 'statisticsReducer', {} )
+      }
+    )
+  } else {
+    // clean
+    plusPieData = [];
+    minusPieData = [];
+    dispatch.setter( 'statisticsReducer', {} )
   }
-];
+
+}
 
 const StatisticsСhart = ({state, dispatch, history}) =>
   <div>
@@ -81,7 +75,17 @@ const StatisticsСhart = ({state, dispatch, history}) =>
 
       <Divider dashed />
 
-        filter
+        <RangePicker
+          format={"DD.MM.YYYY"}
+          defaultValue={[moment().startOf('month'), moment().endOf('month')]}
+          ranges={{
+            "Сегодня": [moment(), moment()],
+            "Неделя": [moment().startOf('week'), moment().endOf('week')],
+            "Текущий месяц": [moment().startOf('month'), moment().endOf('month')],
+            "Текущий год": [moment().startOf('year'), moment().endOf('year')],
+          }}
+          onChange={(dates, dateStrings) => onChange({dispatch, dates, dateStrings})}
+        />
 
       <Divider dashed />
 

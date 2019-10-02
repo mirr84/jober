@@ -1,0 +1,4 @@
+PassengerNodejs /home/y/y913929d/.local/bin/node
+PassengerAppRoot /home/y/y913929d/jober/public
+PassengerAppType node
+PassengerStartupFile ../server/server.js
