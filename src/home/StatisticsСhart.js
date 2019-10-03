@@ -89,42 +89,45 @@ const StatisticsСhart = ({state, dispatch, history}) =>
 
       <Divider dashed />
 
-      <Row>
-        <Col span={10}>
-          <Pie
-            hasLegend
-            subTitle="Сумма дохода"
-            total={() => (
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: plusPieData.reduce((pre, now) => now.y + pre, 0),
-                }}
-              />
-            )}
-            data={plusPieData}
-            valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
-            height={294}
-          />
-        </Col>
-        <Col span={2} />
-        <Col span={10}>
-          <Pie
-            hasLegend
-            subTitle="Сумма расхода"
-            total={() => (
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: minusPieData.reduce((pre, now) => now.y + pre, 0),
-                }}
-              />
-            )}
-            data={minusPieData}
-            valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
-            height={294}
-          />
-        </Col>
-        <Col span={2} />
-      </Row>
+      <Spin tip="Loading..." spinning={state.statisticsReducer.isProgressListChart} >
+        <Row>
+          <Col span={10}>
+            <Pie
+              hasLegend
+              subTitle="Сумма дохода"
+              total={() => (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: plusPieData.reduce((pre, now) => now.y + pre, 0),
+                  }}
+                />
+              )}
+              data={plusPieData}
+              valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
+              height={294}
+            />
+          </Col>
+          <Col span={2} />
+          <Col span={10}>
+            <Pie
+              hasLegend
+              subTitle="Сумма расхода"
+              total={() => (
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: minusPieData.reduce((pre, now) => now.y + pre, 0),
+                  }}
+                />
+              )}
+              data={minusPieData}
+              valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
+              height={294}
+            />
+          </Col>
+          <Col span={2} />
+        </Row>
+      </Spin>
+
       <Divider dashed />
 
       график по датам
