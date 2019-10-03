@@ -3,7 +3,7 @@
 .ant-table, .ant-pagination-item, .ant-calendar,
 .ant-calendar-ok-btn, .ant-select-dropdown, .ant-radio-button-wrapper,
 .ant-tag, .ant-popover-inner, .ant-message-notice-content, .ant-tooltip-inner,
-.ant-alert {
+.ant-alert, .g2-tooltip {
   border-radius: 0px!important;
 }
 

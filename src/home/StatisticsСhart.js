@@ -93,8 +93,7 @@ const StatisticsСhart = ({state, dispatch, history}) =>
         <Col span={10}>
           <Pie
             hasLegend
-            title="title"
-            subTitle="subTitle"
+            subTitle="Сумма дохода"
             total={() => (
               <span
                 dangerouslySetInnerHTML={{
@@ -111,8 +110,7 @@ const StatisticsСhart = ({state, dispatch, history}) =>
         <Col span={10}>
           <Pie
             hasLegend
-            title="title"
-            subTitle="subTitle"
+            subTitle="Сумма расхода"
             total={() => (
               <span
                 dangerouslySetInnerHTML={{
