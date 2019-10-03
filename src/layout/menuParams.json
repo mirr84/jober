@@ -14,9 +14,16 @@
   { "pathname": "^/document/expenditure$", "title": "Документы -> создание расхода" },
   { "pathname": "^/document/transaction$", "title": "Документы -> создание перевода" },
 
+  { "pathname": "^/budget$", "title": "Настрока бюджета" },
+
   { "pathname": "^/statistics$", "title": "Статистика -> календарь" },
   { "pathname": "^/statistics/calendar$", "title": "Статистика -> календарь" },
   { "pathname": "^/statistics/chart$", "title": "Статистика -> график" },
+
+  { "pathname": "^/credit$", "title": "Планирование кредита" },
+  { "pathname": "^/debet$", "title": "Планирование вклада" },
+
+  { "pathname": "^/map/shop$", "title": "Карта покупок" },
 
   { "pathname": "^/profile$", "title": "Профиль" }
 

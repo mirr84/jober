@@ -57,6 +57,50 @@ const Menu = ({state, dispatch, history}) =>
               onClick={() => history.push(`/statistics`)}/>
     </Tooltip>
 
+             {' '}
+
+    <Tooltip title={'budget'} placement="bottomLeft">
+      <Button size={'small'}
+              type="primary"
+              icon="control"
+              onClick={() => history.push(`/budget`)}/>
+    </Tooltip>
+
+            {' '}
+
+    <Divider type="vertical" />
+
+             {' '}
+
+    <Tooltip title={'credit'} placement="bottomLeft">
+      <Button size={'small'}
+              type="primary"
+              icon="fall"
+              onClick={() => history.push(`/credit`)}/>
+    </Tooltip>
+
+            {' '}
+
+    <Tooltip title={'debet'} placement="bottomLeft">
+      <Button size={'small'}
+              type="primary"
+              icon="rise"
+              onClick={() => history.push(`/debet`)}/>
+    </Tooltip>
+
+            {' '}
+
+    <Divider type="vertical" />
+
+            {' '}
+
+    <Tooltip title={'map shop'} placement="bottomLeft">
+      <Button size={'small'}
+              type="primary"
+              icon="shop"
+              onClick={() => history.push(`/map/shop`)}/>
+    </Tooltip>
+
     <Divider dashed />
 
   </div>

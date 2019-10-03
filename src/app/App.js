@@ -15,8 +15,15 @@ import DocumentEdit from "./../home/DocumentEdit";
 
 import AccountCreate from "./../home/AccountCreate";
 
+import Budget from "./../home/Budget";
+
 import StatisticsCalendar from "./../home/StatisticsCalendar";
 import StatisticsСhart from "./../home/StatisticsСhart";
+
+import Credit from "./../home/Credit";
+import Debet from "./../home/Debet";
+
+import MapShop from "./../home/MapShop";
 
 import Profile from "./../home/Profile";
 
@@ -41,6 +48,7 @@ const App = ({state, dispatch}) =>
       <Route path="/account" exact render={props => <MyLayout secure={true} content={Account} /> } />
       <Route path="/category" exact render={props => <MyLayout secure={true} content={Category} /> } />
       <Route path="/document" exact render={props => <MyLayout secure={true} content={Document} /> } />
+      <Route path="/budget" exact render={props => <MyLayout secure={true} content={Budget} /> } />
 
       <Route path="/account/create" exact render={props => <MyLayout secure={true} content={AccountCreate} /> } />
 
@@ -53,6 +61,11 @@ const App = ({state, dispatch}) =>
       <Route path="/statistics" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />
       <Route path="/statistics/calendar" exact render={props => <MyLayout secure={true} content={StatisticsCalendar} /> } />
       <Route path="/statistics/chart" exact render={props => <MyLayout secure={true} content={StatisticsСhart} /> } />
+
+      <Route path="/credit" exact render={props => <MyLayout secure={true} content={Credit} /> } />
+      <Route path="/debet" exact render={props => <MyLayout secure={true} content={Debet} /> } />
+
+      <Route path="/map/shop" exact render={props => <MyLayout secure={true} content={MapShop} /> } />
 
       <Route path="/profile" exact render={props => <MyLayout secure={true} content={Profile} /> } />
 

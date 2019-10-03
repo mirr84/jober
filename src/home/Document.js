@@ -9,7 +9,7 @@ import {doListAccount} from "../service/accountService";
 import {doListCategoty} from "../service/categoryService";
 
 import {Button, Tabs, Spin, Divider, Tag, Icon, Switch, Table, Input,
-        Select, DatePicker, InputNumber, Row, Col, Popconfirm} from 'antd';
+        Select, DatePicker, InputNumber, Row, Col, Popconfirm, Tooltip} from 'antd';
 
 import Menu from './Menu';
 
@@ -339,6 +339,15 @@ const Document = ({state, dispatch, history}) =>
     <Spin tip="Loading..." spinning={state.authReducer.isProgressCheck} >
 
         <Menu />
+
+        <Tooltip title={'photo'} placement="bottomLeft">
+          <Button size={'small'}
+                  type="primary"
+                  icon="shake"
+                  onClick={() => {}}/>
+        </Tooltip>
+
+        <Divider dashed />
 
         <Tabs defaultActiveKey={defaultActiveKey} onChange={ (key) => history.push(`/document/${key}`) }>
           <TabPane tab="Доход" key="income">
