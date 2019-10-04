@@ -50,6 +50,12 @@ const DocumentEdit = ({state, dispatch, history, match}) =>
           !documentData && <Alert message="Нет прав или документ не существует" type="error" />
         }
 
+        <Row>
+          <Col>
+            
+          </Col>
+        </Row>
+
         {
           JSON.stringify(documentData)
         }

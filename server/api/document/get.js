@@ -20,14 +20,17 @@ module.exports.get = (
             )
             .then(
                 (conn) => connection.query(`
-                        (SELECT * FROM document a WHERE a.users_id = '${users_id}' AND a.id = '${id}' AND a.groupKeys IS NULL)
+                        (SELECT *, DATE_FORMAT(a.datetime, '%d.%m.%Y %T') as 'datetime' FROM document a WHERE a.users_id = '${users_id}' AND a.id = '${id}' AND a.groupKeys IS NULL)
                         UNION
-                        (SELECT * FROM document b WHERE b.groupKeys = (SELECT a.groupKeys FROM document a WHERE a.users_id = '${users_id}' AND a.id = '${id}' AND a.groupKeys IS NOT NULL))      
+                        (SELECT *, DATE_FORMAT(b.datetime, '%d.%m.%Y %T') as 'datetime' FROM document b WHERE b.groupKeys = (SELECT a.groupKeys FROM document a WHERE a.users_id = '${users_id}' AND a.id = '${id}' AND a.groupKeys IS NOT NULL))
                       `)
             )
             .then(
               (list) => {
                 if (list.length === 0) throw (401);
+
+                list = list.map( a => { delete a.users_id; delete a.groupKeys; return { ...a } })
+
                 if (list.length === 1) {
                   res.status(200).send({documentData: list[0]});
                   return;
@@ -36,6 +39,7 @@ module.exports.get = (
                   res.status(200).send({documentsData: list});
                   return;
                 }
+
               }
             )
             .then(
