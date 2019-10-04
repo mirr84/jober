@@ -76,11 +76,14 @@ const columns = ({dispatch, history}) => [
     title: 'id',
     dataIndex: 'id',
     render: id => `${id}`,
-    width: 50
+    width: 50,
+    // fixed: 'left',
   },
   {
     title: 'key',
-    dataIndex: 'key'
+    dataIndex: 'key',
+    width: 100,
+    // fixed: 'left',
   },
   {
     title: 'description',
@@ -95,6 +98,7 @@ const columns = ({dispatch, history}) => [
   {
     title: 'direct',
     dataIndex: 'direct',
+    width: 100,
     render: (text, record) => {
       if (text === 1 && !record.groupKeys) return 'Доход';
       if (text === -1 && !record.groupKeys) return 'Расход';
@@ -106,11 +110,13 @@ const columns = ({dispatch, history}) => [
     title: 'datetime',
     dataIndex: 'datetime',
     sorter: true,
+    width: 150,
   },
   {
     title: 'summ',
     dataIndex: 'summ',
     sorter: true,
+    width: 100,
   },
   {
     dataIndex: 'deleted',
@@ -121,7 +127,7 @@ const columns = ({dispatch, history}) => [
             <Col span={12}>
               <Button size="small"
                       type="primary"
-                      icon="search"
+                      icon="edit"
                       onClick={ () => history.push(`/document/${record.id}`) }
                   />
             </Col>

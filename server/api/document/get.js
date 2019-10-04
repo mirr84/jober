@@ -20,15 +20,22 @@ module.exports.get = (
             )
             .then(
                 (conn) => connection.query(`
-                        SELECT * FROM document a
-                        WHERE a.users_id = '${users_id}' AND a.id = '${id}'
+                        (SELECT * FROM document a WHERE a.users_id = '${users_id}' AND a.id = '${id}' AND a.groupKeys IS NULL)
+                        UNION
+                        (SELECT * FROM document b WHERE b.groupKeys = (SELECT a.groupKeys FROM document a WHERE a.users_id = '${users_id}' AND a.id = '${id}' AND a.groupKeys IS NOT NULL))      
                       `)
             )
             .then(
               (list) => {
                 if (list.length === 0) throw (401);
-
-                res.status(200).send({documentData: list[0]})
+                if (list.length === 1) {
+                  res.status(200).send({documentData: list[0]});
+                  return;
+                }
+                if (list.length === 2) {
+                  res.status(200).send({documentsData: list});
+                  return;
+                }
               }
             )
             .then(
