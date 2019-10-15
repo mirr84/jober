@@ -6,6 +6,7 @@ import {accountReducer} from "./accountReducer";
 import {categoryReducer} from "./categoryReducer";
 import {documentReducer} from "./documentReducer";
 import {statisticsReducer} from "./statisticsReducer";
+import {creditReducer} from "./creditReducer";
 
 export default combineReducers(
     {
@@ -15,7 +16,8 @@ export default combineReducers(
         accountReducer,
         categoryReducer,
         documentReducer,
-        statisticsReducer
+        statisticsReducer,
+        creditReducer
 
     }
 );
