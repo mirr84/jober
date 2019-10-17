@@ -23,6 +23,10 @@ const Menu = ({state, dispatch, history}) =>
 
              {' '}
 
+    <Divider type="vertical" />
+
+             {' '}
+
     <Tooltip title={'account'} placement="bottomLeft">
       <Button size={'small'}
               type="primary"

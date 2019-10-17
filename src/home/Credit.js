@@ -25,6 +25,7 @@ const Credit = ({state, dispatch, history}) =>
       <Menu />
 
         <Tabs
+          size={'small'}
           hideAdd
           onChange={ (a)=> console.log(a) }
           // activeKey={}

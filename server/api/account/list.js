@@ -40,15 +40,18 @@ module.exports.list = (
             )
             .then(
                 (conn) => connection.query(`
-                  SELECT c.key, c.description, group_concat(c.operations separator '/+') as 'operations', c.balans FROM (
-                    SELECT a.key, a.description,
-                           count(d.account_id) * d.direct as 'operations',
-                           'balans' as 'balans'
-                    FROM account a
-                    LEFT JOIN document d ON d.account_id = a.id AND d.users_id = '${users_id}' AND d.groupKeys IS NULL ${whereDelete}
-                    WHERE a.users_id = '${users_id}' ${whereDelete}
-                    GROUP BY d.account_id, d.direct
-                  ) c
+                  SELECT c.key,
+                         c.description,
+                         group_concat(c.operations separator '/+') as 'operations',
+                         c.balans FROM (
+                          SELECT a.key, a.description,
+                                 count(d.account_id) * d.direct as 'operations',
+                                 'balans' as 'balans'
+                          FROM account a
+                          LEFT JOIN document d ON d.account_id = a.id AND d.users_id = '${users_id}' AND d.groupKeys IS NULL ${whereDelete}
+                          WHERE a.users_id = '${users_id}' ${whereDelete}
+                          GROUP BY d.account_id, d.direct
+                        ) c
                   ${orderBy}
                   GROUP BY c.key
                   ${limits}
