@@ -4,7 +4,7 @@
 .ant-calendar-ok-btn, .ant-select-dropdown, .ant-radio-button-wrapper,
 .ant-tag, .ant-popover-inner, .ant-message-notice-content, .ant-tooltip-inner,
 .ant-alert, .g2-tooltip,
-.ant-tabs-tab {
+.ant-tabs-tab, .ant-collapse-item {
   border-radius: 0px!important;
 }
 
@@ -59,4 +59,14 @@
 .ant-divider-horizontal {
     margin: 14px 0;
     /* margin-bottom: 0px;  */
+}
+
+.ant-collapse-borderless > .ant-collapse-item {
+  border: 1px solid #d9d9d9;
+}
+
+.ant-collapse-item {
+  background: #ffffff;
+  margin-bottom: 9px;
+  overflow: hidden;
 }

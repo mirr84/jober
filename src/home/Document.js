@@ -9,13 +9,14 @@ import {doListAccount} from "../service/accountService";
 import {doListCategoty} from "../service/categoryService";
 
 import {Button, Tabs, Spin, Divider, Tag, Icon, Switch, Table, Input,
-        Select, DatePicker, InputNumber, Row, Col, Popconfirm, Tooltip} from 'antd';
+        Select, DatePicker, InputNumber, Row, Col, Popconfirm, Tooltip, Collapse} from 'antd';
 
 import Menu from './Menu';
 
 const { TabPane } = Tabs;
 const { Option } = Select;
 const { TextArea } = Input;
+const { Panel } = Collapse;
 
 let defaultActiveKey;
 let pagination = { current: 1, pageSize: 100, position: 'both' };
@@ -355,7 +356,11 @@ const Document = ({state, dispatch, history}) =>
 
         <Divider dashed />
 
-        <Tabs defaultActiveKey={defaultActiveKey} onChange={ (key) => history.push(`/document/${key}`) }>
+        <Collapse bordered={false}
+                  defaultActiveKey={['create']}
+                  expandIcon={({ isActive }) => <Icon type="right" rotate={isActive ? 90 : 0} />}>
+          <Panel header="Создание нового документа" key="create">
+              <Tabs defaultActiveKey={defaultActiveKey} onChange={ (key) => history.push(`/document/${key}`) }>
           <TabPane tab="Доход" key="income">
 
               <DocumentCreatePanel
@@ -422,6 +427,20 @@ const Document = ({state, dispatch, history}) =>
 
           </TabPane>
         </Tabs>
+          </Panel>
+          <Panel header="Фильтр" key="filter">
+            filter
+          </Panel>
+          <Panel header="Информация" key="info">
+            count: { listDocumentData.total_count }
+            <br />
+            summ plus: {}
+            <br />
+            summ minus: {}
+            <br />
+            balans: {}
+          </Panel>
+         </Collapse>
 
           <Table
             size="small"
